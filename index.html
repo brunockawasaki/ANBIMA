@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudos CPA Anbima</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--muted:#5b6675;--line:#dfe3e8;--brand:#1f4e8c;--brand2:#e8f0fb;--ok:#1a7f4b;--okbg:#e6f5ec;--bad:#b3261e;--badbg:#fdeceb;--warn:#8a5a00;--warnbg:#fff4d6;--soft:#f1f4f8;--th:#eef2f7;--track:#e7ebf0;--onbrand:#fff;--hdr:#1f4e8c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--muted:#9aa5b4;--line:#2d3642;--brand:#7fb0ee;--brand2:#1e2c42;--ok:#5cc88c;--okbg:#14301f;--bad:#f39a92;--badbg:#3a1b19;--warn:#e8b84a;--warnbg:#3a2f12;--soft:#222a35;--th:#222a35;--track:#2d3642;--onbrand:#0d1a2e;--hdr:#1a2f4f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--muted:#9aa5b4;--line:#2d3642;--brand:#7fb0ee;--brand2:#1e2c42;--ok:#5cc88c;--okbg:#14301f;--bad:#f39a92;--badbg:#3a1b19;--warn:#e8b84a;--warnbg:#3a2f12;--soft:#222a35;--th:#222a35;--track:#2d3642;--onbrand:#0d1a2e;--hdr:#1a2f4f;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px}
+header{background:var(--hdr);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;font-weight:600}
+header small{opacity:.85}
+nav{display:flex;gap:4px;flex-wrap:wrap;background:var(--card);border-bottom:1px solid var(--line);padding:8px 12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+nav button{border:0;background:transparent;padding:8px 12px;border-radius:8px;font-size:15px;cursor:pointer;color:var(--ink)}
+nav button.on{background:var(--brand2);color:var(--brand);font-weight:600}
+main{max-width:900px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+h2{margin:6px 0 10px;font-size:22px}
+h3{margin:0 0 8px;font-size:18px}
+h4{margin:18px 0 6px;font-size:16px;color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.btn{display:inline-block;border:1px solid var(--brand);background:var(--brand);color:var(--onbrand);padding:9px 16px;border-radius:8px;font-size:15px;cursor:pointer}
+.btn.sec{background:var(--card);color:var(--brand)}
+.btn:disabled{opacity:.5;cursor:default}
+.muted{color:var(--muted)}
+.pill{display:inline-block;background:var(--brand2);color:var(--brand);border-radius:99px;padding:2px 10px;font-size:13px;font-weight:600}
+table{display:block;overflow-x:auto;border-collapse:collapse;max-width:100%;margin:10px 0;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--th)}
+.box{border-radius:8px;padding:10px 12px;margin:12px 0;font-size:15px}
+.box.prova{background:var(--brand2);border-left:4px solid var(--brand)}
+.box.dica{background:var(--okbg);border-left:4px solid var(--ok)}
+.box.atencao{background:var(--warnbg);border-left:4px solid var(--warn)}
+ul,ol{padding-left:22px;margin:6px 0}
+li{margin:3px 0}
+.bar{height:10px;background:var(--track);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--brand)}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:10px 12px;margin:7px 0;cursor:pointer;font-size:15.5px;color:var(--ink)}
+.opt:hover{border-color:var(--brand)}
+.opt.sel{border-color:var(--brand);background:var(--brand2)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.exp{background:var(--soft);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:15px}
+.qnav{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.qnav button{color:var(--ink);width:36px;height:34px;border:1px solid var(--line);background:var(--card);border-radius:6px;cursor:pointer;font-size:13px}
+.qnav button.done{background:var(--brand2);border-color:var(--brand)}
+.qnav button.cur{outline:2px solid var(--brand)}
+.qnav button.flag{border-color:var(--warn);background:var(--warnbg)}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:20px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.big{font-size:42px;font-weight:700;line-height:1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}.mbox{background:var(--card);border-radius:12px;padding:18px;max-width:420px;width:100%}.ia{white-space:pre-wrap}textarea{width:100%;min-height:110px;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:var(--card);color:var(--ink)}.msg{padding:8px 12px;border-radius:10px;margin:8px 0;white-space:pre-wrap}.msg.u{background:var(--brand2)}.msg.a{background:var(--soft)}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chips button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 11px;cursor:pointer;font-size:13.5px}
+.pass{color:var(--ok)}.fail{color:var(--bad)}
+.sec-done{color:var(--ok);font-weight:600}
+@media print{nav,header,.btn,.noprint{display:none}body{background:#fff}.card{border:0}}
+@media(max-width:560px){main{padding:10px}.card{padding:12px}nav button{padding:7px 9px;font-size:14px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Material de Estudos CPA Anbima</h1>
+  <small>Baseado no Programa Detalhado e no Edital oficiais (vigência a partir de 01/01/2026)</small>
+</header>
+<nav id="nav"></nav>
+<main id="app"></main>
+
+<script>
+const MODULOS = [
+{
+ id: 1, peso: 20, nome: "Sistema financeiro, economia e regras do mercado",
+ resumo: "Quem manda, quem fiscaliza, como a economia funciona, juros e matemática financeira.",
+ secoes: [
+ { t: "1. Quem é quem no Sistema Financeiro Nacional (SFN)", h: `
+<p>O SFN é o conjunto de órgãos e empresas que cuidam do dinheiro no Brasil. Para a prova, guarde a divisão em três grupos: <b>quem cria as regras</b>, <b>quem fiscaliza</b> e <b>quem opera</b>.</p>
+<table>
+<tr><th>Área</th><th>Quem faz as regras (normativo)</th><th>Quem fiscaliza (supervisor)</th></tr>
+<tr><td>Moeda, crédito e bancos</td><td>CMN (Conselho Monetário Nacional)</td><td>Banco Central (BC)</td></tr>
+<tr><td>Mercado de valores mobiliários (ações, fundos, debêntures)</td><td>CMN (diretrizes) e a própria CVM (normas)</td><td>CVM (Comissão de Valores Mobiliários)</td></tr>
+<tr><td>Seguros, capitalização e previdência aberta</td><td>CNSP (Conselho Nacional de Seguros Privados)</td><td>SUSEP</td></tr>
+<tr><td>Previdência fechada (fundos de pensão)</td><td>CNPC (Conselho Nacional de Previdência Complementar)</td><td>PREVIC</td></tr>
+</table>
+<div class="box prova"><b>Cai na prova:</b> o CMN <u>não executa</u> nada. Ele só define as regras gerais. Quem executa e fiscaliza é o Banco Central. O CMN é formado pelo Ministro da Fazenda (presidente), pelo Ministro do Planejamento e Orçamento e pelo Presidente do Banco Central.</div>
+<h4>O que o Banco Central faz</h4>
+<ul>
+<li>Executa a política monetária (controla a quantidade de dinheiro e os juros).</li>
+<li>Fiscaliza os bancos e demais instituições financeiras.</li>
+<li>Emite o papel-moeda (cédulas e moedas).</li>
+<li>Cuida da estabilidade do sistema e do Pix.</li>
+<li>Persegue a meta de inflação, que é definida pelo CMN.</li>
+</ul>
+<h4>Quem opera no sistema (principais)</h4>
+<ul>
+<li><b>Bancos e caixas econômicas:</b> recebem depósitos, emprestam e prestam serviços.</li>
+<li><b>Cooperativas de crédito:</b> pertencem aos próprios associados (cooperados).</li>
+<li><b>Corretoras e distribuidoras:</b> compram e vendem títulos e valores mobiliários para os clientes.</li>
+<li><b>Instituições de pagamento:</b> contas de pagamento, cartões, carteiras digitais. Não podem emprestar com o dinheiro do cliente.</li>
+<li><b>Administradoras de consórcio:</b> organizam grupos de consórcio.</li>
+<li><b>SCFI (financeiras):</b> financiamento ao consumidor (CDC).</li>
+<li><b>Companhias hipotecárias e SCI:</b> crédito imobiliário.</li>
+<li><b>Agências de fomento:</b> financiam o desenvolvimento regional.</li>
+<li><b>B3:</b> a bolsa de valores e também ambiente de balcão organizado.</li>
+<li><b>Seguradoras, EAPC e sociedades de capitalização:</b> seguros, previdência aberta e títulos de capitalização.</li>
+<li><b>EFPC (fundos de pensão):</b> previdência fechada, para empregados de uma empresa ou categoria.</li>
+</ul>
+<h4>Autorreguladores e proteção</h4>
+<ul>
+<li><b>Anbima:</b> associação do mercado. Cria códigos de conduta e dá o selo e as certificações (como a CPA).</li>
+<li><b>Apimec, Planejar e Ancord:</b> certificam analistas, planejadores financeiros e agentes autônomos.</li>
+<li><b>FGC (Fundo Garantidor de Créditos):</b> protege o cliente se a instituição quebrar. Cobre até <b>R$ 250 mil por CPF, por instituição</b>, com limite global de <b>R$ 1 milhão a cada 4 anos</b>. Cobre: conta corrente, poupança, CDB, RDB, LCI, LCA e letras de câmbio. <u>Não cobre</u>: fundos de investimento, ações, debêntures, CRI, CRA, COE e títulos públicos.</li>
+<li><b>FGCoop:</b> faz o mesmo papel do FGC para cooperativas de crédito.</li>
+</ul>
+`},
+ { t: "2. Economia e política econômica", h: `
+<h4>Fluxo circular da renda</h4>
+<p>A economia é um circuito. <b>Famílias</b> trabalham para as <b>empresas</b> e recebem salário. Com o salário, compram produtos das empresas. O <b>governo</b> cobra impostos e devolve em serviços e gastos. O <b>mercado financeiro</b> liga quem poupa a quem precisa de crédito.</p>
+<h4>Subdivisões do mercado financeiro</h4>
+<ul>
+<li><b>Mercado monetário:</b> controle da liquidez e dos juros de curtíssimo prazo.</li>
+<li><b>Mercado de crédito:</b> empréstimos e financiamentos (bancos).</li>
+<li><b>Mercado de capitais:</b> recursos de longo prazo, com ações, debêntures e fundos.</li>
+<li><b>Mercado cambial:</b> compra e venda de moeda estrangeira.</li>
+</ul>
+<h4>Política fiscal</h4>
+<p>É a política de gastos e impostos do governo. Quando o governo gasta mais do que arrecada, tem <b>déficit</b> e precisa se endividar (vende títulos públicos). A <b>Lei de Responsabilidade Fiscal</b> existe para obrigar o governo a manter as contas equilibradas. Mais gasto do governo tende a aquecer a economia e pode pressionar a inflação e os juros.</p>
+<h4>Política monetária</h4>
+<p>É o controle do dinheiro em circulação e dos juros. Quem faz é o Banco Central, por meio do <b>Copom</b>.</p>
+<table>
+<tr><th></th><th>Expansionista</th><th>Contracionista</th></tr>
+<tr><td>Objetivo</td><td>Estimular a economia</td><td>Segurar a inflação</td></tr>
+<tr><td>Juros</td><td>Baixa a Selic</td><td>Sobe a Selic</td></tr>
+<tr><td>Crédito</td><td>Fica mais barato e abundante</td><td>Fica mais caro e escasso</td></tr>
+</table>
+<h4>Instrumentos da política monetária</h4>
+<ul>
+<li><b>Open market:</b> o BC compra e vende títulos públicos para tirar ou colocar dinheiro no mercado. É o principal instrumento no dia a dia.</li>
+<li><b>Depósito compulsório:</b> parte dos depósitos que os bancos são obrigados a deixar parados no BC. Aumentar o compulsório reduz o dinheiro disponível para emprestar.</li>
+<li><b>Redesconto:</b> empréstimo do BC a um banco com falta de liquidez (instrumento de última instância).</li>
+</ul>
+<h4>Copom, meta Selic, Selic e CDI</h4>
+<ul>
+<li><b>Copom:</b> Comitê de Política Monetária. Se reúne 8 vezes por ano e define a <b>meta da taxa Selic</b>.</li>
+<li><b>Meta Selic:</b> o alvo que o Copom decide.</li>
+<li><b>Taxa Selic (over):</b> a taxa que de fato ocorre nas operações com títulos públicos de um dia.</li>
+<li><b>CDI (taxa DI):</b> taxa dos empréstimos de um dia entre bancos. Anda sempre muito próxima da Selic. É a referência para renda fixa e fundos.</li>
+<li><b>Regime de metas para a inflação:</b> o CMN define a meta e o BC usa os juros para alcançá-la. A meta é medida pelo <b>IPCA</b>.</li>
+</ul>
+<div class="box dica"><b>Macete:</b> inflação alta, o Copom <u>sobe</u> a Selic. Com juros altos, o crédito encarece, o consumo cai e a inflação desacelera. Juros altos também deixam os títulos de renda fixa mais atrativos e derrubam o preço das ações.</div>
+<h4>Política cambial</h4>
+<ul>
+<li><b>Câmbio flutuante:</b> o preço do dólar varia com oferta e demanda (regime do Brasil, com intervenções pontuais do BC).</li>
+<li><b>Câmbio fixo:</b> o governo trava o valor da moeda.</li>
+<li><b>Reservas internacionais:</b> dólares e outros ativos que o BC guarda.</li>
+<li><b>Swap cambial:</b> instrumento que o BC usa para atuar no câmbio sem vender dólar à vista.</li>
+<li><b>PTAX:</b> média das taxas de câmbio do dia calculada pelo BC. Serve de referência para contratos.</li>
+<li><b>Câmbio turismo x comercial:</b> turismo é para pessoas em viagem. Comercial é para empresas (importação e exportação).</li>
+<li><b>Taxa nominal x real:</b> a nominal é a cotação que você vê. A real desconta a inflação dos dois países.</li>
+</ul>
+<h4>Indicadores</h4>
+<table>
+<tr><th>Indicador</th><th>O que é</th><th>Quem calcula</th></tr>
+<tr><td>PIB</td><td>Tudo o que o país produz. Soma: consumo + investimento + gastos do governo + (exportações − importações)</td><td>IBGE</td></tr>
+<tr><td>IPCA</td><td>Inflação oficial, usada na meta</td><td>IBGE</td></tr>
+<tr><td>IGP-M</td><td>Índice de preços amplo. Muito usado em reajuste de aluguel</td><td>FGV</td></tr>
+<tr><td>IPA</td><td>Preços no atacado (compõe o IGP)</td><td>FGV</td></tr>
+<tr><td>IPC-Fipe</td><td>Inflação na cidade de São Paulo</td><td>Fipe</td></tr>
+<tr><td>Taxa de desemprego</td><td>% de pessoas que procuram trabalho e não acham</td><td>IBGE</td></tr>
+<tr><td>TR</td><td>Taxa referencial de juros, usada na poupança e no FGTS</td><td>BC</td></tr>
+</table>
+<h4>Os três riscos básicos</h4>
+<ul>
+<li><b>Risco de mercado:</b> perder dinheiro porque os preços mudaram (juros, câmbio, bolsa).</li>
+<li><b>Risco de crédito:</b> o devedor não pagar.</li>
+<li><b>Risco de liquidez:</b> não conseguir vender o ativo rápido sem perder valor.</li>
+</ul>
+`},
+ { t: "3. Matemática financeira essencial", h: `
+<h4>Juros simples e juros compostos</h4>
+<p><b>Simples:</b> os juros incidem sempre sobre o valor inicial. <b>Compostos:</b> os juros incidem sobre o valor já corrigido (juros sobre juros).</p>
+<ul>
+<li>Simples: <b>M = C × (1 + i × n)</b></li>
+<li>Composto: <b>M = C × (1 + i)<sup>n</sup></b></li>
+</ul>
+<p><i>Exemplo:</i> R$ 1.000 a 10% ao ano por 2 anos. Simples: 1.000 × (1 + 0,10 × 2) = <b>R$ 1.200</b>. Composto: 1.000 × 1,10² = <b>R$ 1.210</b>.</p>
+<h4>Taxa nominal, efetiva e real (Fisher)</h4>
+<p>A taxa <b>nominal</b> é a anunciada. A <b>real</b> é o ganho verdadeiro depois de descontar a inflação. Fórmula de Fisher:</p>
+<p><b>(1 + nominal) = (1 + real) × (1 + inflação)</b></p>
+<p><i>Exemplo:</i> investimento rendeu 10% e a inflação foi 4%. Real = 1,10 ÷ 1,04 − 1 = <b>5,77%</b> (e não 6%).</p>
+<h4>Taxas prefixada e pós-fixada</h4>
+<ul>
+<li><b>Prefixada:</b> você sabe a taxa no dia da compra (ex.: 12% ao ano).</li>
+<li><b>Pós-fixada:</b> segue um indexador (CDI, Selic, IPCA). A taxa final só aparece no vencimento.</li>
+<li><b>Híbrida:</b> indexador + taxa fixa (ex.: IPCA + 6%).</li>
+</ul>
+<h4>Taxas equivalentes</h4>
+<p>No juro composto, 1% ao mês <u>não</u> é 12% ao ano. É (1,01)¹² − 1 = <b>12,68% ao ano</b>. No juro simples, a taxa é proporcional (1% ao mês = 12% ao ano).</p>
+<h4>Desconto</h4>
+<ul>
+<li><b>Desconto comercial (por fora):</b> a taxa incide sobre o valor de face (valor do título no vencimento). D = N × d × n. É o desconto bancário simples, usado na antecipação de recebíveis (duplicatas, cheques).</li>
+<li><b>Desconto racional (por dentro):</b> a taxa incide sobre o valor atual.</li>
+</ul>
+<p><i>Exemplo:</i> duplicata de R$ 10.000 antecipada 60 dias antes, taxa de desconto de 3% ao mês. D = 10.000 × 0,03 × 2 = R$ 600. Você recebe <b>R$ 9.400</b>.</p>
+<h4>Sistemas de amortização</h4>
+<table>
+<tr><th></th><th>SAC</th><th>Price (tabela Price)</th></tr>
+<tr><td>Amortização</td><td>Constante</td><td>Crescente</td></tr>
+<tr><td>Parcela</td><td>Começa alta e diminui</td><td>Constante (igual do início ao fim)</td></tr>
+<tr><td>Juros</td><td>Diminuem</td><td>Diminuem</td></tr>
+<tr><td>Custo total</td><td>Menor</td><td>Maior</td></tr>
+</table>
+<p><i>Exemplo SAC:</i> financiamento de R$ 120.000 em 120 meses. Amortização fixa = 120.000 ÷ 120 = <b>R$ 1.000 por mês</b>. Os juros são calculados sobre o saldo devedor.</p>
+<h4>Outros conceitos</h4>
+<ul>
+<li><b>Valor presente (VP) e valor futuro (VF):</b> quanto vale hoje e quanto vale mais à frente um valor.</li>
+<li><b>VPL (valor presente líquido):</b> soma dos fluxos futuros trazidos a valor de hoje, menos o investimento. VPL positivo: o projeto vale a pena.</li>
+<li><b>TIR (taxa interna de retorno):</b> a taxa que zera o VPL. Se a TIR é maior que o custo de oportunidade, o projeto compensa.</li>
+<li><b>Payback:</b> tempo para recuperar o dinheiro investido. Investiu R$ 30.000 e recebe R$ 5.000 por ano: payback de 6 anos.</li>
+<li><b>Custo de oportunidade:</b> o que você deixa de ganhar na melhor alternativa.</li>
+<li><b>Taxa livre de risco:</b> a taxa de um título sem risco de calote (no Brasil, a Selic/títulos públicos).</li>
+<li><b>Duration:</b> prazo médio ponderado de recebimento dos fluxos de um título. Mede a sensibilidade do preço a mudanças nos juros. Quanto maior, mais o preço oscila.</li>
+<li><b>Taxa bruta x líquida:</b> bruta é antes do imposto, líquida é depois.</li>
+<li><b>CMPC:</b> custo médio ponderado de capital, ou seja, o custo médio do dinheiro da empresa (dívida + capital próprio).</li>
+<li><b>Alavancagem:</b> usar dinheiro de terceiros para ampliar o retorno. Amplia também o risco.</li>
+</ul>
+`},
+ { t: "4. Infraestrutura e regulação do mercado", h: `
+<h4>Infraestruturas do mercado financeiro (IMFs)</h4>
+<table>
+<tr><th>Peça</th><th>Para que serve</th></tr>
+<tr><td>SPB (Sistema de Pagamentos Brasileiro)</td><td>Conjunto de regras e sistemas que movimentam o dinheiro entre instituições (TED, DOC, Pix, cartões).</td></tr>
+<tr><td>SPI (Sistema de Pagamentos Instantâneos)</td><td>Infraestrutura do Pix, operada pelo BC. Funciona 24 horas por dia, todos os dias.</td></tr>
+<tr><td>Selic (sistema)</td><td>Custódia e liquidação dos títulos públicos federais. Operado pelo BC.</td></tr>
+<tr><td>B3</td><td>Bolsa e balcão. Faz negociação, registro, depósito central de ações e atua como contraparte central.</td></tr>
+<tr><td>Contraparte central (clearing)</td><td>Fica no meio de toda negociação e garante o pagamento. Reduz o risco de a outra parte não cumprir (risco de contraparte).</td></tr>
+<tr><td>Depositário central</td><td>Guarda os ativos de forma centralizada (custódia).</td></tr>
+<tr><td>Entidade registradora</td><td>Registra operações e recebíveis para evitar duplicidade.</td></tr>
+<tr><td>BSM</td><td>Supervisiona o mercado de bolsa e balcão organizado (braço de supervisão da B3).</td></tr>
+</table>
+<h4>Estabilidade financeira</h4>
+<ul>
+<li><b>Risco sistêmico:</b> a quebra de uma instituição que contamina todo o sistema (efeito dominó).</li>
+<li><b>Comef:</b> comitê do BC para a estabilidade financeira.</li>
+<li><b>Depósito compulsório e linhas de liquidez (LLI e LLT):</b> ferramentas para dar fôlego aos bancos.</li>
+<li><b>Acordos de Basileia (I, II e III):</b> regras internacionais que exigem que os bancos tenham capital mínimo e liquidez, para aguentar crises. A Basileia III reforçou o capital e criou regras de liquidez e de alavancagem.</li>
+<li><b>Desintermediação financeira:</b> o cliente passa a investir direto, sem passar pelo banco (fintechs, plataformas, bolsa).</li>
+</ul>
+<h4>Classificação dos investidores (Resolução CVM 30)</h4>
+<table>
+<tr><th>Tipo</th><th>Regra principal</th></tr>
+<tr><td>Profissional</td><td>Instituições financeiras, fundos, e pessoas físicas com mais de <b>R$ 10 milhões</b> em investimentos financeiros que declaram por escrito essa condição.</td></tr>
+<tr><td>Qualificado</td><td>Todo profissional, mais pessoas físicas com mais de <b>R$ 1 milhão</b> em investimentos financeiros (com declaração), e quem tem certificações específicas.</td></tr>
+<tr><td>Geral (varejo)</td><td>Os demais.</td></tr>
+</table>
+<p>Essa classificação libera o acesso a produtos mais complexos e de maior risco (ex.: algumas ofertas restritas e fundos exclusivos).</p>
+<h4>Lei da Liberdade Econômica (Lei 13.874/2019)</h4>
+<p>Garante o livre mercado e reduz a burocracia para abrir e tocar negócios. Princípio: a liberdade é a regra e a intervenção do Estado é a exceção.</p>
+<h4>Autorregulação Anbima e Código de Distribuição</h4>
+<ul>
+<li>Organiza as regras de conduta para quem distribui produtos de investimento.</li>
+<li><b>Conheça sua clientela (KYC):</b> cadastro e documentação do cliente.</li>
+<li><b>Suitability:</b> adequar o produto ao perfil do cliente (objetivo, situação financeira, conhecimento).</li>
+<li><b>Publicidade:</b> informação clara e sem prometer rentabilidade.</li>
+<li><b>Transparência na remuneração:</b> o cliente deve saber como o distribuidor é remunerado.</li>
+<li><b>Portabilidade:</b> transferir produtos de investimento entre instituições.</li>
+<li><b>Private:</b> regras específicas para clientes de alta renda.</li>
+</ul>
+<div class="box prova"><b>Cai na prova:</b> entender quem faz o quê. Exemplo típico: "qual instituição fiscaliza fundos de investimento?" É a CVM. "Qual faz a custódia e liquidação dos títulos públicos?" É o Selic.</div>
+`}
+ ]
+},
+{
+ id: 2, peso: 40, nome: "Produtos do mercado financeiro",
+ resumo: "Renda fixa, ações, fundos, previdência, crédito, serviços bancários e seguros. É o módulo mais pesado.",
+ secoes: [
+ { t: "1. Renda fixa: títulos públicos", h: `
+<p>Renda fixa é quando você empresta dinheiro e as regras do ganho são conhecidas desde o início. Quem pega o dinheiro é o <b>emissor</b>. O governo emite <b>títulos públicos</b>, que são os de menor risco do país.</p>
+<table>
+<tr><th>Título</th><th>Nome no Tesouro Direto</th><th>Como rende</th><th>Juros periódicos?</th></tr>
+<tr><td>LTN</td><td>Tesouro Prefixado</td><td>Taxa fixa</td><td>Não</td></tr>
+<tr><td>NTN-F</td><td>Tesouro Prefixado com Juros Semestrais</td><td>Taxa fixa</td><td>Sim (semestral)</td></tr>
+<tr><td>LFT</td><td>Tesouro Selic</td><td>Taxa Selic + pequeno ágio ou deságio</td><td>Não</td></tr>
+<tr><td>NTN-B Principal</td><td>Tesouro IPCA+</td><td>IPCA + taxa fixa</td><td>Não</td></tr>
+<tr><td>NTN-B</td><td>Tesouro IPCA+ com Juros Semestrais</td><td>IPCA + taxa fixa</td><td>Sim (semestral)</td></tr>
+</table>
+<ul>
+<li><b>Tesouro Selic:</b> o de menor oscilação de preço. Bom para reserva de emergência.</li>
+<li><b>Tesouro Educa+:</b> variação do IPCA+ pensada para pagar estudos de filhos e dependentes.</li>
+<li><b>Tesouro Renda+:</b> variação do IPCA+ pensada para complementar a renda na aposentadoria.</li>
+<li><b>Tesouro Direto:</b> plataforma pela qual a pessoa física compra títulos públicos pela internet. Todo o processo é feito por meio de uma corretora ou banco.</li>
+<li><b>Marcação a mercado:</b> o preço do título muda todo dia conforme os juros. Se vender antes do vencimento, pode ganhar ou perder. Se levar até o vencimento, recebe o combinado.</li>
+</ul>
+<div class="box dica"><b>Macete:</b> juros de mercado <u>sobem</u>, o preço de títulos prefixados <u>cai</u>. Juros de mercado <u>caem</u>, o preço <u>sobe</u>.</div>
+`},
+ { t: "2. Renda fixa: títulos bancários e privados", h: `
+<table>
+<tr><th>Título</th><th>Quem emite</th><th>FGC?</th><th>IR para pessoa física</th></tr>
+<tr><td>CDB</td><td>Banco</td><td>Sim</td><td>Tabela regressiva</td></tr>
+<tr><td>RDB / RDC</td><td>Banco / cooperativa</td><td>Sim (RDB)</td><td>Tabela regressiva (RDB é não negociável)</td></tr>
+<tr><td>LCI</td><td>Banco (lastro em crédito imobiliário)</td><td>Sim</td><td>Isento</td></tr>
+<tr><td>LCA</td><td>Banco (lastro em crédito do agronegócio)</td><td>Sim</td><td>Isento</td></tr>
+<tr><td>LC (Letra de Câmbio)</td><td>Financeira</td><td>Sim</td><td>Tabela regressiva</td></tr>
+<tr><td>Debênture</td><td>Empresa S/A (dívida da empresa)</td><td>Não</td><td>Regressiva (as de infraestrutura/incentivadas são isentas para PF)</td></tr>
+<tr><td>CRI</td><td>Securitizadora (lastro em imóveis)</td><td>Não</td><td>Isento</td></tr>
+<tr><td>CRA</td><td>Securitizadora (lastro no agro)</td><td>Não</td><td>Isento</td></tr>
+</table>
+<ul>
+<li><b>Debênture conversível:</b> pode virar ações da empresa. <b>Permutável:</b> pode virar ações de outra empresa.</li>
+<li><b>Rating:</b> nota dada por agência de risco (como S&amp;P, Moody's, Fitch) que mostra a chance de calote. AAA é o melhor. Notas abaixo de BBB- são "grau especulativo".</li>
+<li><b>Liquidez diária:</b> você pode resgatar a qualquer momento. Outros títulos só pagam no vencimento.</li>
+<li><b>Carência:</b> prazo mínimo em que o título não pode ser resgatado.</li>
+</ul>
+<h4>Poupança</h4>
+<ul>
+<li>Rende todo mês na <b>data de aniversário</b> (dia do depósito). Se sacar antes, perde os rendimentos daquele mês.</li>
+<li>Regra: com Selic <b>acima de 8,5% ao ano</b>, rende 0,5% ao mês + TR. Com Selic <b>igual ou abaixo de 8,5%</b>, rende 70% da Selic + TR.</li>
+<li>Isenta de IR para pessoa física. Protegida pelo FGC. Liquidez diária.</li>
+<li>Importante para o <b>SFH</b> (Sistema Financeiro da Habitação): parte do dinheiro dos depósitos é obrigatoriamente usada para financiar imóveis.</li>
+</ul>
+<h4>Impostos na renda fixa</h4>
+<table>
+<tr><th>Prazo da aplicação</th><th>Alíquota de IR (sobre o rendimento)</th></tr>
+<tr><td>Até 180 dias</td><td>22,5%</td></tr>
+<tr><td>De 181 a 360 dias</td><td>20%</td></tr>
+<tr><td>De 361 a 720 dias</td><td>17,5%</td></tr>
+<tr><td>Acima de 720 dias</td><td>15%</td></tr>
+</table>
+<ul>
+<li>O IR incide <b>só sobre o rendimento</b>, não sobre o valor aplicado. É retido na fonte pela instituição, no resgate (no vencimento).</li>
+<li><b>IOF:</b> só cobrado em resgate com <b>menos de 30 dias</b>. Começa em 96% do rendimento no 1º dia e chega a zero no 30º dia. Vem antes do IR.</li>
+<li><b>Exemplo:</b> aplicou por 400 dias e teve R$ 1.000 de rendimento. IR = 17,5% × 1.000 = <b>R$ 175</b>.</li>
+</ul>
+<div class="box prova"><b>Cai na prova:</b> LCI, LCA, CRI, CRA e poupança são isentos de IR para pessoa física. CDB, RDB e Tesouro Direto pagam a tabela regressiva. Só CDB, RDB, LCI, LCA e poupança têm FGC. CRI, CRA e debêntures não têm.</div>
+`},
+ { t: "3. Renda variável: ações", h: `
+<p>Renda variável é quando o ganho <b>não é conhecido de antemão</b>. A ação é uma <b>pedaço da empresa</b>. Quem compra vira sócio e pode ganhar com a alta do preço e com os dividendos.</p>
+<h4>Tipos de empresa</h4>
+<ul>
+<li><b>Ltda.:</b> sócios com cotas. Não emite ações.</li>
+<li><b>S/A (sociedade anônima):</b> capital dividido em ações.</li>
+<li><b>S/A aberta:</b> pode vender ações ao público e é registrada na CVM. <b>S/A fechada:</b> não.</li>
+<li><b>Listada:</b> negocia ações na bolsa (B3).</li>
+</ul>
+<h4>Tipos de ação</h4>
+<table>
+<tr><th>Tipo</th><th>Característica</th></tr>
+<tr><td>Ordinária (ON, final 3)</td><td>Dá direito a voto nas assembleias.</td></tr>
+<tr><td>Preferencial (PN, final 4)</td><td>Prioridade no recebimento de dividendos, em regra sem voto.</td></tr>
+<tr><td>Unit</td><td>Pacote de ações negociadas juntas (ex.: 1 ON + 2 PN). Final 11.</td></tr>
+<tr><td>BDR</td><td>Certificado que representa ações de empresas estrangeiras negociado no Brasil.</td></tr>
+<tr><td>Bônus de subscrição</td><td>Direito de comprar ações novas, em geral com desconto.</td></tr>
+</table>
+<h4>Mercado primário x secundário</h4>
+<ul>
+<li><b>Primário:</b> a empresa vende ações pela primeira vez e o dinheiro vai para a empresa. Pode ser <b>IPO</b> (primeira oferta) ou <b>follow-on</b> (nova oferta depois do IPO).</li>
+<li><b>Secundário:</b> investidores negociam entre si na bolsa. O dinheiro não vai para a empresa.</li>
+<li><b>OPA:</b> Oferta Pública de Aquisição, quando alguém se oferece para comprar ações dos acionistas (por exemplo, para fechar o capital).</li>
+</ul>
+<h4>Eventos corporativos</h4>
+<table>
+<tr><th>Evento</th><th>O que acontece</th></tr>
+<tr><td>Dividendos</td><td>Parte do lucro distribuída aos acionistas.</td></tr>
+<tr><td>JCP (Juros sobre Capital Próprio)</td><td>Outra forma de distribuir lucro. A empresa deduz do imposto dela. O acionista recebe com <b>15% de IR retido na fonte</b>.</td></tr>
+<tr><td>Desdobramento (split)</td><td>Cada ação vira várias. Mais ações, preço menor. O valor total não muda. (1 ação de R$ 40 vira 2 de R$ 20.)</td></tr>
+<tr><td>Grupamento (inplit)</td><td>Várias ações viram uma. Menos ações, preço maior. O valor total não muda.</td></tr>
+<tr><td>Bonificação</td><td>A empresa entrega ações novas gratuitas aos acionistas, vindas de reservas. (Bonificação de 10%: 100 ações viram 110.)</td></tr>
+<tr><td>Subscrição</td><td>Direito de comprar ações novas, em geral na proporção das que já tem.</td></tr>
+<tr><td>AGO</td><td>Assembleia Geral Ordinária: acontece todo ano, aprova as contas e destina o lucro.</td></tr>
+<tr><td>AGE</td><td>Assembleia Geral Extraordinária: trata de assuntos específicos (estatuto, aumento de capital, fusão).</td></tr>
+</table>
+<h4>Índices</h4>
+<ul>
+<li><b>Ibovespa:</b> principal índice da bolsa. Carteira teórica das ações mais negociadas. Serve de termômetro do mercado.</li>
+<li><b>IBrX 100 e IBrX 50:</b> as 100 e as 50 ações mais negociadas e representativas.</li>
+</ul>
+<h4>Governança corporativa e segmentos da B3</h4>
+<p>Governança é o conjunto de regras que protege o acionista. Os segmentos de listagem da B3 vão do mais básico ao mais exigente: <b>Tradicional, Nível 1, Nível 2, Novo Mercado</b> (o mais exigente). Existe também o Bovespa Mais para empresas menores.</p>
+<ul>
+<li><b>Novo Mercado:</b> só pode ter ações ordinárias, com tag along de 100% e conselho de administração com membros independentes.</li>
+<li><b>Tag along:</b> se o controlador vende a empresa, o acionista minoritário tem direito de vender suas ações pelo mesmo preço (ou por uma porcentagem dele).</li>
+<li><b>Drag along:</b> o controlador pode obrigar os minoritários a vender junto numa venda.</li>
+<li><b>Free float:</b> porcentagem das ações disponíveis para negociação no mercado.</li>
+<li><b>Conselho de administração:</b> define a estratégia e fiscaliza a diretoria.</li>
+</ul>
+<h4>Imposto na renda variável (pessoa física)</h4>
+<table>
+<tr><th>Operação</th><th>Alíquota sobre o lucro</th><th>Detalhes</th></tr>
+<tr><td>Swing trade (comprar e vender em dias diferentes)</td><td>15%</td><td>Isento se o total vendido no mês for até R$ 20 mil (ações)</td></tr>
+<tr><td>Day trade (comprar e vender no mesmo dia)</td><td>20%</td><td>Sem isenção</td></tr>
+</table>
+<ul>
+<li>O imposto é pago por conta do investidor, em <b>DARF</b>, até o último dia útil do mês seguinte.</li>
+<li>Há uma retenção pequena na fonte ("dedo-duro") só para informar a Receita.</li>
+<li><b>Compensação de perdas:</b> o prejuízo pode ser abatido de lucros futuros do mesmo tipo de operação.</li>
+</ul>
+<div class="box atencao"><b>Atenção:</b> as regras de imposto sobre dividendos mudaram para 2026 (nova lei sobre rendas altas). Para a prova, siga o enunciado e a regra vigente na data do exame. Confirme sempre no material oficial da Anbima.</div>
+<h4>COE (Certificado de Operações Estruturadas)</h4>
+<ul>
+<li>Emitido por bancos. Combina um investimento em renda fixa com derivativos.</li>
+<li><b>Capital protegido:</b> o valor aplicado volta no vencimento, mesmo que o cenário seja ruim.</li>
+<li><b>Capital em risco:</b> pode perder parte ou até todo o valor.</li>
+<li>Não tem cobertura do FGC. Paga IR regressivo (tabela da renda fixa).</li>
+</ul>
+`},
+ { t: "4. Fundos de investimento", h: `
+<p>Um fundo é um <b>condomínio</b>: um grupo de pessoas que junta o dinheiro para investir junto, com um gestor profissional. Cada pessoa tem <b>cotas</b>. O valor da cota muda todo dia conforme a carteira. A regra principal é a <b>Resolução CVM 175</b>.</p>
+<h4>Quem é quem no fundo</h4>
+<ul>
+<li><b>Administrador:</b> responsável legal e pela parte operacional e de informação. Registra o fundo na CVM.</li>
+<li><b>Gestor:</b> decide o que comprar e vender.</li>
+<li><b>Custodiante:</b> guarda os ativos.</li>
+<li><b>Distribuidor:</b> vende cotas ao cliente.</li>
+<li>Administrador e gestor são os <b>serviços essenciais</b>.</li>
+</ul>
+<h4>Conceitos importantes (CVM 175)</h4>
+<ul>
+<li>O fundo pode ser dividido em <b>classes</b> e <b>subclasses</b> de cotas.</li>
+<li><b>Segregação patrimonial:</b> o patrimônio do fundo é separado do patrimônio do administrador e do gestor.</li>
+<li><b>Classe aberta:</b> aceita novos aplicadores e resgates a qualquer tempo, conforme o regulamento. <b>Classe fechada:</b> o investidor só sai no fim do prazo ou vendendo a cota na bolsa.</li>
+<li><b>Assembleia de cotistas:</b> o cotista vota decisões importantes.</li>
+<li><b>Patrimônio líquido negativo:</b> quando as dívidas do fundo passam do que ele tem. Se a responsabilidade é <b>limitada</b>, o cotista não paga além do que investiu. Se for <b>ilimitada</b>, o cotista pode ter de colocar dinheiro novo.</li>
+</ul>
+<h4>Taxas</h4>
+<table>
+<tr><th>Taxa</th><th>Quem paga e como</th></tr>
+<tr><td>Administração</td><td>% ao ano sobre o patrimônio, cobrada todo dia.</td></tr>
+<tr><td>Performance</td><td>Parte do que exceder um índice de referência (benchmark). Só vale se o fundo superar o benchmark e a "linha d'água".</td></tr>
+<tr><td>Ingresso (entrada)</td><td>Cobrada quando você aplica.</td></tr>
+<tr><td>Saída</td><td>Cobrada quando você resgata.</td></tr>
+<tr><td>Distribuição</td><td>Remuneração do distribuidor.</td></tr>
+</table>
+<h4>Tipos de fundos financeiros (FIF) pela carteira</h4>
+<table>
+<tr><th>Tipo</th><th>Regra principal</th></tr>
+<tr><td>Renda fixa</td><td>Pelo menos 80% em ativos ligados a juros ou índices de preços.</td></tr>
+<tr><td>Ações</td><td>Pelo menos 67% em ações.</td></tr>
+<tr><td>Cambial</td><td>Pelo menos 80% da carteira atrelada à variação do câmbio.</td></tr>
+<tr><td>Multimercado</td><td>Livre, com várias classes de ativos, sem concentração obrigatória.</td></tr>
+</table>
+<h4>Imposto sobre fundos</h4>
+<ul>
+<li><b>Come-cotas:</b> antecipação de IR cobrada <b>duas vezes por ano</b> (último dia útil de maio e de novembro), tirando cotas do investidor. Vale para fundos de renda fixa e multimercados. Alíquota: <b>15%</b> para fundos de longo prazo e <b>20%</b> para curto prazo.</li>
+<li><b>Fundo de longo prazo:</b> carteira com prazo médio acima de 365 dias. IR no resgate pela tabela de 22,5% a 15%, descontado o come-cotas.</li>
+<li><b>Fundo de curto prazo:</b> prazo médio até 365 dias. IR de 22,5% até 180 dias e 20% depois.</li>
+<li><b>Fundos de ações:</b> sem come-cotas. IR de <b>15%</b> só no resgate.</li>
+<li><b>IOF</b> regressivo nos resgates com menos de 30 dias.</li>
+</ul>
+<h4>Fundos imobiliários (FII)</h4>
+<ul>
+<li>Cotas negociadas na bolsa (B3). O investidor <b>vende a cota a outro investidor</b>, não resgata do fundo.</li>
+<li>Investe em imóveis, títulos imobiliários (CRI, LCI) ou cotas de outros FIIs.</li>
+<li><b>Fundo de tijolo:</b> investe em imóveis físicos (shoppings, lajes, galpões). <b>Fundo de papel:</b> investe em títulos de crédito imobiliário (CRI). <b>Híbrido:</b> os dois.</li>
+<li>Distribui por regra <b>pelo menos 95% do resultado</b> apurado, a cada semestre. Normalmente paga todo mês.</li>
+<li>Riscos: liquidez (pouca negociação), vacância (imóveis vazios), crédito (inadimplência dos devedores) e mercado.</li>
+<li>Imposto: os rendimentos mensais são <b>isentos de IR para pessoa física</b> em condições específicas (fundo negociado em bolsa, com no mínimo 100 cotistas, e o cotista com menos de 10% das cotas). O <b>ganho de capital</b> na venda da cota paga <b>20%</b>.</li>
+</ul>
+`},
+ { t: "5. Previdência complementar (PGBL e VGBL)", h: `
+<p>Previdência privada aberta é um produto de seguradora (EAPC) para juntar dinheiro no longo prazo. Tem duas fases: <b>acumulação</b> (você contribui) e <b>concessão/benefício</b> (você recebe).</p>
+<table>
+<tr><th></th><th>PGBL</th><th>VGBL</th></tr>
+<tr><td>Para quem</td><td>Quem declara IR no <b>modelo completo</b> e contribui para o INSS ou outro regime</td><td>Quem usa o modelo simplificado, é isento ou já usou o limite de 12%</td></tr>
+<tr><td>Benefício fiscal</td><td>Pode abater até <b>12% da renda bruta anual</b> tributável na declaração</td><td>Não tem</td></tr>
+<tr><td>IR no resgate</td><td>Sobre o <b>valor total</b> (principal + rendimento)</td><td>Só sobre o <b>rendimento</b></td></tr>
+</table>
+<h4>Regimes de tributação (a pessoa escolhe)</h4>
+<table>
+<tr><th>Progressivo (compensável)</th><th>Regressivo (definitivo)</th></tr>
+<tr><td>Segue a tabela do IR da pessoa física. Há retenção de 15% na fonte, ajustada na declaração.</td><td>Alíquota cai com o tempo: 35% (até 2 anos), 30% (2 a 4), 25% (4 a 6), 20% (6 a 8), 15% (8 a 10) e <b>10% (acima de 10 anos)</b>.</td></tr>
+<tr><td>Bom para quem terá renda baixa na aposentadoria.</td><td>Bom para quem pretende deixar o dinheiro por muito tempo.</td></tr>
+</table>
+<ul>
+<li><b>Não tem come-cotas.</b> Esse é um dos benefícios da previdência.</li>
+<li><b>Taxa de administração:</b> % ao ano sobre o saldo. <b>Taxa de carregamento:</b> cobrada na entrada (sobre a contribuição) ou na saída.</li>
+<li><b>Portabilidade:</b> trocar o plano de instituição sem pagar IR no ato. Pode ser entre planos do mesmo tipo.</li>
+<li><b>Resgate:</b> dá para sacar antes, respeitando a carência do plano, mas há IR.</li>
+</ul>
+<h4>Como receber (transformação da reserva em renda)</h4>
+<ul>
+<li><b>Renda mensal vitalícia:</b> paga enquanto a pessoa viver.</li>
+<li><b>Vitalícia com prazo mínimo garantido:</b> se morrer antes do prazo, os beneficiários recebem o resto.</li>
+<li><b>Vitalícia com reversão ao beneficiário indicado:</b> continua para outra pessoa.</li>
+<li><b>Vitalícia reversível ao cônjuge com continuidade aos menores:</b> vai para o cônjuge e depois aos filhos menores.</li>
+<li><b>Renda temporária e por prazo certo:</b> paga por um período definido.</li>
+<li><b>Pagamento único:</b> recebe tudo de uma vez.</li>
+</ul>
+<div class="box prova"><b>Cai na prova:</b> PGBL para quem usa o modelo completo de IR. VGBL para os demais. No regressivo, a alíquota mínima é 10% após 10 anos.</div>
+`},
+ { t: "6. Crédito e financiamento", h: `
+<h4>Empréstimo, financiamento e leasing</h4>
+<ul>
+<li><b>Empréstimo:</b> o cliente recebe dinheiro livre para usar como quiser.</li>
+<li><b>Financiamento:</b> o dinheiro tem destino certo (casa, carro). O bem geralmente fica como garantia (alienação fiduciária).</li>
+<li><b>Leasing (arrendamento mercantil):</b> aluguel de um bem com opção de compra no final.</li>
+</ul>
+<h4>Como o banco avalia o crédito</h4>
+<ul>
+<li><b>Rating e score:</b> notas de risco do cliente (o score é calculado por empresas como Serasa).</li>
+<li><b>Comprovação de renda:</b> mostra a capacidade de pagar.</li>
+<li><b>SCR (Sistema de Informações de Crédito do BC):</b> mostra todas as dívidas do cliente no sistema financeiro.</li>
+</ul>
+<h4>Principais produtos</h4>
+<table>
+<tr><th>Produto</th><th>Ideia central</th></tr>
+<tr><td>Cartão de crédito</td><td>Compra com vencimento posterior. Pagou o total: sem juros. Pagou o mínimo: o restante entra no <b>rotativo</b> e vira dívida com juros altos. O parcelamento da fatura costuma ser mais barato que o rotativo.</td></tr>
+<tr><td>Cheque especial</td><td>Limite pré-aprovado na conta corrente. Juros altos (há teto de 8% ao mês por regulamento). Use só em emergência.</td></tr>
+<tr><td>Crédito consignado</td><td>A parcela é descontada direto do salário ou benefício. Juros menores por ter risco menor. Tem limite de <b>margem consignável</b> (parte da renda que pode ser comprometida).</td></tr>
+<tr><td>CDC</td><td>Crédito Direto ao Consumidor. Financia bens específicos (carro, eletrodoméstico). Pode ter o bem como garantia e prazo mais longo.</td></tr>
+<tr><td>Crédito imobiliário</td><td>Compra de imóvel, com alienação fiduciária. Prazos longos (até 35 anos). SFH usa taxa mais baixa, com recursos da poupança e do FGTS.</td></tr>
+<tr><td>Capital de giro</td><td>Crédito para a empresa pagar despesas do dia a dia.</td></tr>
+<tr><td>Consórcio</td><td>Grupo de pessoas que se junta para formar uma poupança coletiva. <b>Não tem juros</b>, mas tem taxa de administração. A contemplação é por sorteio ou lance.</td></tr>
+</table>
+<div class="box dica"><b>Macete:</b> a taxa de juros depende do risco e da garantia. Quanto maior a garantia (casa, salário), menor o juro. Sem garantia (cartão rotativo, cheque especial), maior o juro.</div>
+`},
+ { t: "7. Serviços bancários, câmbio e seguros", h: `
+<h4>Conta corrente e depósitos</h4>
+<ul>
+<li><b>Conta corrente:</b> o cliente movimenta o dinheiro com cartão, cheque, Pix e boleto. O dinheiro é depósito à vista (disponível na hora).</li>
+<li><b>Conta salário:</b> aberta pelo empregador. Não pode receber outros depósitos. É isenta de tarifas, e o trabalhador pode pedir a portabilidade para outra conta.</li>
+<li>Depósitos à vista têm cobertura do FGC e fazem parte do depósito compulsório dos bancos.</li>
+<li><b>Tarifas:</b> o cliente tem direito a um conjunto de serviços essenciais gratuitos na conta de pessoa física. Cobrança de outros serviços precisa estar prevista no contrato e ser comunicada.</li>
+</ul>
+<h4>Pix</h4>
+<ul>
+<li>Sistema de pagamentos instantâneos criado pelo BC.</li>
+<li>Funciona 24 horas por dia, 7 dias por semana, inclusive feriados.</li>
+<li>Chaves: CPF/CNPJ, celular, e-mail ou chave aleatória.</li>
+<li>Para pessoa física, a transferência é em geral gratuita. Pode ter custo para empresas.</li>
+<li>Serve para transferências e pagamentos, para pessoas e empresas.</li>
+</ul>
+<h4>Conta internacional e câmbio</h4>
+<ul>
+<li>O <b>IOF</b> incide sobre operações de câmbio. As alíquotas variam conforme o tipo de operação e são definidas por decreto.</li>
+<li>Investimentos feitos no exterior: os rendimentos são tributados no Brasil e devem ser declarados no IR.</li>
+<li>Compra e venda de moeda: bancos e corretoras autorizadas fazem. O correspondente bancário pode atuar conforme as regras do BC.</li>
+</ul>
+<h4>Seguros</h4>
+<table>
+<tr><th>Seguro</th><th>O que cobre</th></tr>
+<tr><td>Vida inteira</td><td>Cobertura por toda a vida. Paga indenização à família quando a pessoa morre.</td></tr>
+<tr><td>Vida temporário</td><td>Cobre por prazo definido. Mais barato.</td></tr>
+<tr><td>Prestamista</td><td>Quita a dívida (empréstimo, financiamento) se o devedor morrer ou ficar inválido.</td></tr>
+<tr><td>Automóvel</td><td>Roubo, colisão, incêndio e danos a terceiros.</td></tr>
+<tr><td>Residencial</td><td>Incêndio, roubo, danos elétricos e outros riscos da casa.</td></tr>
+</table>
+<ul>
+<li><b>Apólice:</b> contrato do seguro. <b>Prêmio:</b> valor que o segurado paga. <b>Sinistro:</b> o evento coberto. <b>Franquia:</b> parte do prejuízo que fica com o segurado.</li>
+<li>A fiscalização dos seguros é da <b>SUSEP</b>.</li>
+</ul>
+`}
+ ]
+},
+{
+ id: 3, peso: 30, nome: "Relacionamento com o cliente, ética e prevenção a crimes",
+ resumo: "Como atender, adequar produtos ao perfil, regras de conduta, lavagem de dinheiro, LGPD e crimes de mercado.",
+ secoes: [
+ { t: "1. Finanças pessoais", h: `
+<h4>Ciclo de vida do investidor</h4>
+<table>
+<tr><th>Fase</th><th>O que acontece</th><th>Foco</th></tr>
+<tr><td>Acumulação de capital</td><td>Começo da vida profissional</td><td>Formar reserva e poupar</td></tr>
+<tr><td>Crescimento patrimonial</td><td>Renda em alta, família e metas</td><td>Fazer o patrimônio crescer</td></tr>
+<tr><td>Preservação de capital</td><td>Perto da aposentadoria</td><td>Proteger o que foi construído</td></tr>
+<tr><td>Distribuição de renda</td><td>Aposentado</td><td>Viver do patrimônio</td></tr>
+</table>
+<p>Em geral, quanto mais jovem, maior a capacidade de aceitar risco (tem tempo para recuperar). Quanto mais perto de precisar do dinheiro, menor a exposição a risco.</p>
+<h4>Orçamento e capacidade de poupança</h4>
+<ul>
+<li><b>Receitas − despesas = capacidade de poupança.</b></li>
+<li>Despesas fixas (aluguel, escola), variáveis (lazer, mercado) e eventuais.</li>
+<li>Primeiro passo: controlar gastos. Sem sobra não tem como investir.</li>
+</ul>
+<h4>Dívidas</h4>
+<ul>
+<li>Priorize pagar a dívida de <b>juros mais altos</b> (cartão rotativo, cheque especial).</li>
+<li>Se a dívida é cara e há investimento com rendimento menor que o juro, pagar a dívida costuma compensar.</li>
+<li>Escolha a dívida em função da necessidade: consignado ou garantia (mais barato) é melhor do que crédito sem garantia.</li>
+</ul>
+<h4>Reserva de emergência</h4>
+<ul>
+<li>Dinheiro para imprevistos (desemprego, saúde, conserto).</li>
+<li>Tamanho: em geral de <b>3 a 6 meses</b> das despesas mensais. Para autônomos ou renda instável, de 6 a 12 meses.</li>
+<li>Deve estar em ativo de <b>alta liquidez e baixo risco</b> (Tesouro Selic, CDB com liquidez diária, fundo DI).</li>
+<li><i>Exemplo:</i> despesas de R$ 4.000 por mês, reserva de 6 meses = R$ 24.000.</li>
+</ul>
+<h4>Balanço patrimonial pessoal</h4>
+<ul>
+<li><b>Ativos:</b> o que você tem (conta, investimentos, imóvel, carro).</li>
+<li><b>Passivos:</b> o que você deve (financiamento, cartão, empréstimos).</li>
+<li><b>Patrimônio líquido = ativos − passivos.</b></li>
+<li>Ativos de uso: casa onde mora, carro. Não geram renda. Ativos de não uso (investimentos): geram renda.</li>
+</ul>
+<h4>Planejamento financeiro (as etapas)</h4>
+<ol>
+<li>Definir objetivos e metas.</li>
+<li>Avaliar a situação financeira atual.</li>
+<li>Montar o plano de ação.</li>
+<li>Colocar o plano em prática.</li>
+<li>Monitorar e revisar de tempos em tempos.</li>
+</ol>
+<ul>
+<li><b>Aposentadoria:</b> calcule quanto precisa juntar para viver da renda dos investimentos (independência financeira).</li>
+<li><b>Fundo educacional:</b> planejar com antecedência os gastos com escola e faculdade.</li>
+</ul>
+<h4>IR da pessoa física (noções)</h4>
+<ul>
+<li>Quem recebe acima de certo valor ou tem determinados bens deve declarar. Os investimentos entram na declaração.</li>
+<li><b>Modelo completo:</b> deduz despesas reais (saúde, educação, previdência PGBL). <b>Modelo simplificado:</b> desconto padrão de 20% da renda, limitado a um teto.</li>
+<li>Rendimentos podem ser <b>tributáveis</b>, <b>isentos</b> ou de <b>tributação exclusiva/definitiva</b> (já descontado na fonte).</li>
+</ul>
+`},
+ { t: "2. Perfil do investidor e suitability", h: `
+<h4>Perfis</h4>
+<table>
+<tr><th>Perfil</th><th>Característica</th><th>Produtos comuns</th></tr>
+<tr><td>Conservador</td><td>Prioriza segurança, aceita pouco ou nenhum risco</td><td>Poupança, Tesouro Selic, CDB, fundos DI</td></tr>
+<tr><td>Moderado</td><td>Aceita algum risco por mais retorno</td><td>Multimercados, fundos imobiliários, parte em ações</td></tr>
+<tr><td>Arrojado (agressivo)</td><td>Aceita alto risco e oscilação por retorno maior</td><td>Ações, fundos de ações, COE de capital em risco</td></tr>
+</table>
+<p>O perfil depende de três coisas: <b>objetivo</b> (para que serve o dinheiro), <b>situação financeira</b> (renda, patrimônio) e <b>conhecimento</b> (experiência com investimentos). Também conta o <b>horizonte</b> (prazo).</p>
+<h4>Relação entre risco, retorno e diversificação</h4>
+<ul>
+<li>Quanto maior o retorno esperado, maior o risco. Não existe retorno alto sem risco.</li>
+<li><b>Diversificar</b> é espalhar o dinheiro em ativos diferentes para diminuir o risco. É a ideia de "não colocar todos os ovos na mesma cesta".</li>
+</ul>
+<h4>Suitability (adequação)</h4>
+<p>É a obrigação de recomendar produtos <b>adequados</b> ao perfil do cliente. Princípios:</p>
+<ul>
+<li>Fazer o questionário e <b>guardar a documentação</b>.</li>
+<li>Os produtos oferecidos precisam combinar com o perfil e com o objetivo do cliente.</li>
+<li><b>Monitoramento contínuo:</b> o perfil deve ser atualizado em intervalos regulares (no máximo a cada 24 meses).</li>
+<li>Linguagem <b>clara e transparente</b>: explicar riscos e custos.</li>
+<li>Se o cliente quer um produto fora do perfil, o profissional alerta e o cliente assina um <b>termo de ciência</b>. O profissional não pode forçar nem esconder o risco.</li>
+<li>Investidores profissionais podem ser dispensados do suitability.</li>
+</ul>
+<div class="box prova"><b>Cai na prova:</b> cliente conservador pedindo produto de alto risco. Resposta: explique os riscos, mostre alternativas adequadas e registre. Nunca prometa rentabilidade e nunca esconda o risco.</div>
+`},
+ { t: "3. Ética, atendimento e conflito de interesses", h: `
+<h4>Código de Conduta Ética (Anbima)</h4>
+<p>O nome oficial é <b>"Código de Conduta Ética para Pessoas Candidatas e Profissionais com Certificação da Anbima"</b>. Vale para quem quer a certificação e para quem já tem. O conteúdo dele pode cair na prova e na atualização da certificação.</p>
+<h4>Os nove princípios éticos</h4>
+<table>
+<tr><th>#</th><th>Princípio</th><th>Ideia central</th></tr>
+<tr><td>1</td><td>Comportamento ético</td><td>Manter reputação sólida, sem práticas que prejudiquem investidores, mercado, certificação ou Anbima.</td></tr>
+<tr><td>2</td><td>Responsabilidade e vigilância</td><td>Assumir os próprios atos, com prudência e atenção, sem negligência.</td></tr>
+<tr><td>3</td><td>Boa-fé e transparência</td><td>Atuar com transparência, diligência e lealdade, no melhor interesse do cliente.</td></tr>
+<tr><td>4</td><td>Conformidade com as regras</td><td>Não violar o código, a regulação e os códigos Anbima.</td></tr>
+<tr><td>5</td><td>Cumprimento das obrigações</td><td>Cumprir obrigações com o cuidado de uma pessoa prudente e diligente.</td></tr>
+<tr><td>6</td><td>Atualização técnica</td><td>Buscar sempre melhorar o conhecimento sobre produtos, instituições e normas.</td></tr>
+<tr><td>7</td><td>Independência e imparcialidade</td><td>Atuar de forma independente e declarar potenciais conflitos de interesse.</td></tr>
+<tr><td>8</td><td>Honestidade e equidade</td><td>Manter os mais altos padrões de honestidade e integridade.</td></tr>
+<tr><td>9</td><td>Sigilo de informações confidenciais</td><td>Guardar sigilo das informações confidenciais, inclusive as da Anbima.</td></tr>
+</table>
+<div class="box dica"><b>Macete para decorar:</b> <u>Ético</u>, <u>Responsável</u>, <u>Boa-fé</u>, <u>Conforme</u>, <u>Cumpre</u>, <u>Atualiza-se</u>, <u>Independente</u>, <u>Honesto</u>, <u>Sigiloso</u>.</div>
+<h4>Regras para quem é candidato</h4>
+<ul>
+<li><b>Nunca</b> ofereça, peça ou aceite presente ou vantagem para obter benefício na certificação.</li>
+<li><b>Nunca</b> se aproprie ou compartilhe o conteúdo dos exames. É fraude contra o processo.</li>
+<li>Não use equipamento eletrônico de comunicação durante a prova.</li>
+<li>Não use identidade falsa.</li>
+<li>Não se apresente como certificado antes de obter a certificação, nem use certificação vencida.</li>
+<li>Respeite os outros candidatos e cumpra o edital.</li>
+</ul>
+<h4>Regras para quem tem certificação</h4>
+<ul>
+<li>Nunca pratique conduta desonesta, fraudulenta, enganosa ou falsa.</li>
+<li>Não adote condutas que prejudiquem a imagem da Anbima.</li>
+<li>Seja transparente e evite conflitos prejudiciais ao mercado e ao investidor.</li>
+<li>Não ofereça, peça ou aceite presente ou vantagem que comprometa sua reputação e integridade.</li>
+<li>Conheça e cumpra as leis, as normas e o edital.</li>
+</ul>
+<h4>Deveres de quem tem CPA, C-Pro R e C-Pro I</h4>
+<ul>
+<li><b>Não</b> dê opinião nem faça previsão sem ter certeza de que a informação é correta e tem base técnica.</li>
+<li><b>Não</b> prometa rentabilidade, não garanta resultado futuro e não diga que o produto não tem risco.</li>
+<li>Garanta que produtos, serviços e operações sejam <b>adequados ao perfil</b>, às necessidades e aos objetivos do cliente.</li>
+<li>Faça materiais <b>claros e compreensíveis</b>, com as informações essenciais para decidir.</li>
+<li>Respeite a livre iniciativa e a livre concorrência. Evite concorrência desleal.</li>
+<li>Dê informações <b>claras e inequívocas</b> sobre riscos e consequências.</li>
+</ul>
+<h4>Boas práticas de atendimento</h4>
+<ul>
+<li><b>Escuta ativa:</b> deixar o cliente falar e entender de verdade.</li>
+<li><b>Personalização:</b> tratar cada cliente de acordo com a sua realidade.</li>
+<li><b>Solução proativa:</b> antecipar problemas e propor soluções.</li>
+<li><b>Educação continuada:</b> estudar sempre os produtos e serviços.</li>
+<li><b>Gerenciar expectativas:</b> não prometer o que não pode entregar.</li>
+</ul>
+<h4>Conflitos de interesses</h4>
+<p>Existem quando o interesse do profissional (ou da instituição) pode ficar contra o interesse do cliente. Exemplos: vender um produto só porque paga mais comissão, favorecer um parente, aceitar presentes de fornecedores.</p>
+<p>Formas de gerenciar:</p>
+<ul>
+<li>Políticas claras, treinamento e educação.</li>
+<li><b>Divulgação obrigatória</b> do conflito (declarar ao cliente).</li>
+<li><b>Segregação de funções</b> (separar quem recomenda de quem executa).</li>
+<li>Revisão e monitoramento contínuos.</li>
+<li>Comitês de ética e compliance.</li>
+<li>Proibição de certas atividades.</li>
+</ul>
+<h4>Riscos da atividade profissional</h4>
+<ul>
+<li><b>Operacional:</b> falhas de processo, erro humano, sistema.</li>
+<li><b>Regulatório:</b> descumprir normas e ser punido.</li>
+<li><b>Legal:</b> processos e sanções judiciais.</li>
+<li><b>De imagem (reputação):</b> perder a confiança de clientes e do mercado.</li>
+</ul>
+`},
+ { t: "4. Lavagem de dinheiro, fraudes e LGPD", h: `
+<h4>Prevenção à lavagem de dinheiro e ao financiamento do terrorismo (PLDFT)</h4>
+<p><b>Lavagem de dinheiro</b> é fazer o dinheiro de origem ilegal parecer legal. Costuma ter três etapas: <b>colocação</b> (entrar no sistema), <b>ocultação</b> (misturar e esconder a origem) e <b>integração</b> (voltar como dinheiro "limpo").</p>
+<ul>
+<li><b>Lei 9.613/1998:</b> a lei principal. Instituições financeiras são obrigadas a cumprir.</li>
+<li><b>COAF (UIF):</b> unidade de inteligência que recebe as comunicações de operações suspeitas.</li>
+<li><b>Abordagem baseada em risco:</b> a instituição avalia seus próprios riscos e adota controles proporcionais.</li>
+<li><b>KYC (conheça seu cliente):</b> cadastro completo e atualizado, com análise da capacidade financeira. Cadastro desatualizado é um risco.</li>
+<li><b>Conheça seu parceiro e seu funcionário:</b> o mesmo cuidado com quem a instituição contrata e faz negócios.</li>
+<li><b>PEP (pessoa politicamente exposta):</b> exige atenção reforçada.</li>
+<li><b>Operações suspeitas:</b> devem ser comunicadas ao COAF. É proibido <b>avisar o cliente</b> que ele foi comunicado.</li>
+<li>Há comunicação automática para certas operações, como saques e depósitos em espécie de valor elevado.</li>
+<li><b>Indisponibilidade de bens:</b> cumprimento imediato de ordens ligadas a resoluções do Conselho de Segurança da ONU.</li>
+<li>Responsabilidade: a instituição e as <b>pessoas físicas</b> (inclusive o profissional) respondem administrativa e penalmente.</li>
+</ul>
+<h4>Fraudes eletrônicas</h4>
+<ul>
+<li><b>Phishing:</b> mensagem falsa para roubar dados.</li>
+<li><b>Engenharia social:</b> enganar a pessoa para ela entregar informações.</li>
+<li>O banco nunca pede senha completa, token ou código por telefone ou mensagem.</li>
+</ul>
+<h4>LGPD (Lei 13.709/2018)</h4>
+<ul>
+<li>Protege os <b>dados pessoais</b> das pessoas.</li>
+<li>O tratamento de dados precisa de finalidade clara, necessidade e, em geral, <b>consentimento</b>.</li>
+<li>O titular pode pedir acesso, correção e exclusão dos dados.</li>
+<li>Fiscalização: <b>ANPD</b> (Autoridade Nacional de Proteção de Dados).</li>
+<li><b>Sigilo bancário:</b> Lei Complementar 105/2001. As instituições devem conservar sigilo das operações. A exceção é quando há ordem judicial ou obrigação legal (como as comunicações ao COAF).</li>
+</ul>
+`},
+ { t: "5. Crimes e ilícitos no mercado de capitais", h: `
+<h4>Crimes (Lei 6.385/1976, arts. 27-C, 27-D e 27-E)</h4>
+<table>
+<tr><th>Crime</th><th>O que é</th></tr>
+<tr><td>Manipulação de mercado (27-C)</td><td>Realizar operações para alterar artificialmente o preço, o volume ou a liquidez e enganar os investidores.</td></tr>
+<tr><td>Uso indevido de informação privilegiada, ou insider trading (27-D)</td><td>Usar informação relevante, ainda não pública, para lucrar. Pode ser primário (quem tem acesso direto), secundário (quem recebe a informação) ou o repasse da informação.</td></tr>
+<tr><td>Exercício irregular de cargo ou profissão (27-E)</td><td>Atuar sem autorização, como administrador de carteira ou agente sem registro.</td></tr>
+</table>
+<h4>Ilícitos de mercado (Resolução CVM 62)</h4>
+<p>A norma tem <b>tipologia aberta</b>: não lista tudo. Qualquer prática que se enquadre no conceito geral pode ser punida.</p>
+<table>
+<tr><th>Categoria</th><th>Exemplos</th></tr>
+<tr><td>Criação de condições artificiais</td><td><b>Money pass</b>: operação em que uma parte repassa ganhos ou perdas a outra de forma combinada, fora da realidade do mercado.</td></tr>
+<tr><td>Manipulação de preços</td><td><b>Spoofing</b>: colocar ordens sem intenção de executar, só para enganar o mercado. <b>Layering</b>: ordens em várias camadas de preço para dar falsa impressão de demanda ou oferta. Manipulação de benchmark.</td></tr>
+<tr><td>Operações fraudulentas</td><td><b>Churning</b>: operar demais na conta do cliente só para gerar corretagem.</td></tr>
+<tr><td>Práticas não equitativas</td><td><b>Insider trading</b> e <b>front running</b>: operar na frente da ordem de um cliente, usando a informação privilegiada de que ele vai comprar ou vender.</td></tr>
+</table>
+<div class="box dica"><b>Macete:</b> spoofing = ordem "de mentira". Churning = "girar" a conta do cliente. Front running = "furar a fila" na frente do cliente. Money pass = "passar" o dinheiro.</div>
+`}
+ ]
+},
+{
+ id: 4, peso: 10, nome: "Inovação e desenvolvimento de mercado",
+ resumo: "ESG, finanças descentralizadas, open finance, inteligência artificial e fintechs.",
+ secoes: [
+ { t: "1. ESG e investimentos sustentáveis", h: `
+<p><b>ESG</b> significa três letras: <b>E</b>nvironmental (ambiental), <b>S</b>ocial e <b>G</b>overnance (governança).</p>
+<ul>
+<li><b>Ambiental:</b> emissões de carbono, uso de água, energia limpa, desmatamento.</li>
+<li><b>Social:</b> relações com funcionários, diversidade, direitos humanos, comunidade.</li>
+<li><b>Governança:</b> ética, transparência, combate à corrupção, conselho e remuneração dos executivos.</li>
+</ul>
+<h4>Investimentos ESG</h4>
+<p>Investir levando em conta os fatores ESG, além do retorno financeiro. Estratégias comuns:</p>
+<ul>
+<li><b>Exclusão (negative screening):</b> não investir em certos setores (armas, tabaco).</li>
+<li><b>Melhores da classe (best-in-class):</b> escolher as empresas com as melhores práticas do setor.</li>
+<li><b>Integração:</b> considerar os fatores ESG na análise de risco e retorno.</li>
+<li><b>Investimento de impacto:</b> buscar resultado social ou ambiental mensurável.</li>
+<li><b>Engajamento:</b> o investidor dialoga e vota para influenciar a empresa.</li>
+</ul>
+<ul>
+<li><b>Greenwashing:</b> fingir que é sustentável sem de fato ser. Um dos grandes desafios.</li>
+<li><b>PRI (Princípios para o Investimento Responsável):</b> iniciativa apoiada pela ONU para incorporar o ESG nos investimentos.</li>
+<li>No Brasil, a Anbima e a CVM definem regras sobre como os fundos podem se declarar sustentáveis e como informar o cliente. A Anbima identifica os fundos de investimento sustentável (IS).</li>
+</ul>
+`},
+ { t: "2. Finanças descentralizadas (DeFi), tokens e Drex", h: `
+<ul>
+<li><b>Finanças tradicionais:</b> têm um intermediário central (banco, bolsa). <b>DeFi:</b> as operações acontecem em redes de blockchain, sem intermediário central.</li>
+<li><b>Blockchain:</b> livro-razão digital, distribuído e que não permite alterar o que já foi registrado.</li>
+<li><b>Smart contract (contrato inteligente):</b> programa que executa sozinho as regras combinadas quando as condições acontecem. Exemplos: empréstimos, seguros automáticos, compra e venda de imóveis.</li>
+<li><b>DEX:</b> corretora descentralizada de criptoativos.</li>
+<li><b>DAO:</b> organização autônoma descentralizada, governada por votos de quem tem tokens.</li>
+<li><b>Tokenização:</b> transformar um ativo (imóvel, título, obra de arte) em token digital. Traz facilidade de negociar em frações e rapidez. Riscos: segurança, regulação, tecnologia.</li>
+<li><b>NFT:</b> token não fungível (único), representa um item exclusivo.</li>
+<li><b>Stablecoin:</b> criptomoeda com valor atrelado a algo estável (como o dólar).</li>
+<li><b>Drex:</b> projeto de moeda digital do Banco Central (CBDC, sigla em inglês). É a versão digital do real, emitida pelo BC.</li>
+<li><b>ETF de bitcoin e de novas moedas digitais:</b> fundos negociados em bolsa que dão acesso a criptoativos de forma regulada.</li>
+</ul>
+`},
+ { t: "3. Open finance, inteligência artificial e fintechs", h: `
+<h4>Open finance, open investment e open insurance</h4>
+<ul>
+<li><b>Open finance:</b> o cliente pode <b>compartilhar seus dados</b> entre instituições, com seu consentimento. Facilita comparar ofertas, obter crédito mais barato e portar serviços. Regulado pelo Banco Central.</li>
+<li><b>Open investment:</b> o mesmo para investimentos (regulado pela CVM). Inclui a portabilidade de valores mobiliários.</li>
+<li><b>Open insurance:</b> o mesmo para seguros (regulado pela SUSEP).</li>
+<li>Vantagem: concorrência maior e serviços sob medida. Desvantagem: riscos de segurança e vazamento de dados.</li>
+</ul>
+<h4>Inteligência artificial (IA)</h4>
+<ul>
+<li><b>IA generativa:</b> cria conteúdo novo (textos, imagens) a partir do que aprendeu.</li>
+<li><b>Modelos preditivos:</b> usam dados do passado para estimar o futuro (risco de crédito, inadimplência).</li>
+<li><b>Chatbots e assistentes virtuais:</b> atendimento 24 horas, respostas rápidas e redução de custos. O cliente deve poder falar com uma pessoa quando necessário.</li>
+</ul>
+<h4>Fintechs e meios de pagamento</h4>
+<ul>
+<li><b>Fintech:</b> empresa de tecnologia que oferece serviços financeiros. Contribui para a desintermediação financeira.</li>
+<li><b>Sandbox regulatório:</b> ambiente em que o BC e a CVM permitem testar produtos inovadores com regras mais leves, de forma controlada.</li>
+<li><b>Arranjo de pagamento:</b> conjunto de regras e processos de um meio de pagamento (como cartão de uma bandeira).</li>
+<li><b>Adquirente:</b> credencia o lojista e processa as transações de cartão (maquininha).</li>
+<li><b>Subadquirente:</b> intermediário que presta o serviço de adquirência aos lojistas, ligado a um adquirente.</li>
+<li><b>Emissor:</b> instituição que emite o cartão ao cliente.</li>
+</ul>
+`}
+ ]
+}
+];
+
+// Formato: [bloco, enunciado, CORRETA, errada1, errada2, errada3, explicação]
+// A ordem das alternativas é embaralhada pelo programa a cada tentativa.
+const FIXACAO = [
+// ---------- Módulo 1 ----------
+[1,"Qual órgão define a meta de inflação que o Banco Central deve perseguir?","Conselho Monetário Nacional (CMN)","Comissão de Valores Mobiliários (CVM)","Superintendência de Seguros Privados (SUSEP)","B3","O CMN define a meta. O Banco Central executa a política monetária para alcançá-la."],
+[1,"Qual instituição executa a política monetária e fiscaliza os bancos?","Banco Central","CMN","CVM","Anbima","O Banco Central executa e fiscaliza. O CMN só cria as regras gerais."],
+[1,"Qual órgão fiscaliza o mercado de valores mobiliários, como ações e fundos de investimento?","CVM","SUSEP","PREVIC","Banco Central","A CVM supervisiona ações, debêntures, fundos e demais valores mobiliários."],
+[1,"Qual é o limite de cobertura do FGC por CPF e por instituição?","R$ 250 mil","R$ 100 mil","R$ 500 mil","R$ 1 milhão por instituição","O limite é de R$ 250 mil por CPF por instituição, com teto global de R$ 1 milhão a cada 4 anos."],
+[1,"O que o Copom decide a cada reunião?","A meta da taxa Selic","A meta de inflação","O valor do dólar","A taxa de depósito compulsório","O Copom define a meta Selic. A meta de inflação é do CMN."],
+[1,"O que é o open market, no contexto da política monetária?","Compra e venda de títulos públicos pelo Banco Central para ajustar a liquidez","Empréstimo do Banco Central a bancos em dificuldade","Percentual dos depósitos que fica retido no Banco Central","Mercado de ações aberto ao público","Open market é a compra e venda de títulos públicos pelo BC. O empréstimo a banco em dificuldade é o redesconto."],
+[1,"Um investimento rendeu 12% no ano e a inflação foi de 5%. Qual foi o ganho real, aproximadamente?","6,67%","7,00%","5,00%","17,60%","Fisher: 1,12 ÷ 1,05 − 1 = 6,67%. Não é só subtrair 12 − 5."],
+[1,"No sistema de amortização SAC, como se comportam as parcelas?","Começam mais altas e diminuem ao longo do tempo","São constantes do início ao fim","Começam baixas e aumentam","Variam sem padrão definido","No SAC a amortização é constante e os juros caem, então a parcela diminui."],
+[1,"R$ 1.000 aplicados a juros compostos de 10% ao ano durante 2 anos resultam em quanto?","R$ 1.210","R$ 1.200","R$ 1.100","R$ 1.220","1.000 × 1,10² = 1.210. No juro simples seriam 1.200."],
+[1,"Qual é a principal função da contraparte central (clearing)?","Garantir a liquidação das operações e reduzir o risco de a outra parte não cumprir","Fiscalizar as corretoras","Emitir moeda","Definir a taxa de juros","A contraparte central assume o risco de a outra parte não pagar, dando segurança às negociações."],
+[1,"De acordo com a CVM 30, a pessoa física é investidora qualificada quando tem investimentos financeiros acima de:","R$ 1 milhão (com declaração por escrito)","R$ 100 mil","R$ 10 milhões","R$ 500 mil","Qualificada: mais de R$ 1 milhão. Profissional: mais de R$ 10 milhões."],
+[1,"O que é suitability?","Adequar os produtos oferecidos ao perfil do cliente","Garantir rentabilidade mínima ao cliente","Cobrar taxas apenas na saída","Registrar o fundo na CVM","Suitability é a adequação do produto ao perfil, ao objetivo e à situação do cliente."],
+
+// ---------- Módulo 2 ----------
+[2,"A LTN corresponde a qual título do Tesouro Direto?","Tesouro Prefixado","Tesouro Selic","Tesouro IPCA+","Tesouro IPCA+ com Juros Semestrais","LTN = Tesouro Prefixado. LFT = Selic. NTN-B Principal = IPCA+."],
+[2,"A LFT é atrelada a qual indexador?","Taxa Selic","IPCA","Dólar","Taxa fixa","LFT é o Tesouro Selic."],
+[2,"Como o Tesouro IPCA+ com Juros Semestrais (NTN-B) remunera o investidor?","IPCA mais uma taxa fixa, com pagamento de juros a cada 6 meses","Somente a Selic","Taxa fixa sem relação com a inflação","Variação do dólar mais cupom","NTN-B = IPCA + taxa fixa, com cupons semestrais."],
+[2,"Qual aplicação é isenta de Imposto de Renda para pessoa física?","LCI","CDB","Tesouro Selic","Fundo de renda fixa","LCI, LCA, CRI, CRA e poupança são isentos de IR para pessoa física."],
+[2,"Uma pessoa resgatou um CDB após 400 dias, com rendimento de R$ 1.000. Qual foi o IR?","R$ 175","R$ 150","R$ 200","R$ 225","Entre 361 e 720 dias a alíquota é 17,5%. 17,5% de 1.000 = 175."],
+[2,"Qual dos produtos abaixo NÃO tem cobertura do FGC?","Debênture","CDB","LCI","Poupança","Debêntures são dívida da empresa e não têm cobertura do FGC."],
+[2,"Com a Selic acima de 8,5% ao ano, a poupança rende:","0,5% ao mês mais TR","70% da Selic mais TR","100% do CDI","IPCA mais 6%","Selic acima de 8,5%: 0,5% a.m. + TR. Igual ou abaixo: 70% da Selic + TR."],
+[2,"Qual direito é característico da ação ordinária (ON)?","Direito de voto nas assembleias","Prioridade no recebimento de dividendos","Receber valor fixo garantido","Resgatar o valor a qualquer momento","ON dá voto. A PN tem prioridade nos dividendos, em regra sem voto."],
+[2,"O que acontece em um desdobramento (split) de ações?","Aumenta a quantidade de ações e cai o preço de cada uma, sem mudar o valor total","Diminui a quantidade de ações e sobe o preço de cada uma","A empresa distribui ações novas gratuitas","A empresa recompra ações","Desdobramento: mais ações, preço menor, valor total igual. O contrário é o grupamento."],
+[2,"Sobre o Juros sobre Capital Próprio (JCP), é correto afirmar que:","Tem IR retido na fonte de 15%","É sempre isento de IR","Só pode ser pago a empresas","Equivale a bonificação em ações","O JCP sofre retenção de 15% de IR na fonte."],
+[2,"Qual segmento de listagem da B3 tem as regras de governança mais exigentes?","Novo Mercado","Nível 1","Tradicional","Bovespa Mais","O Novo Mercado é o mais exigente, com apenas ações ordinárias e tag along de 100%."],
+[2,"O come-cotas é cobrado em quais meses?","Maio e novembro","Janeiro e julho","Março e setembro","Todo mês","O come-cotas ocorre no último dia útil de maio e de novembro."],
+[2,"Qual é a regra principal para um fundo ser classificado como de ações?","Pelo menos 67% da carteira em ações","Pelo menos 80% em ações","Pelo menos 50% em ações","100% em ações da mesma empresa","Fundo de ações: mínimo de 67% em ações. Renda fixa e cambial: 80%."],
+[2,"O fundo imobiliário classificado como \"de tijolo\" investe principalmente em:","Imóveis físicos, como shoppings e galpões","Títulos de crédito imobiliário (CRI)","Ações de construtoras","Títulos públicos","Tijolo = imóveis físicos. Papel = títulos de crédito imobiliário."],
+[2,"Qual é a principal vantagem fiscal do PGBL?","Dedução de até 12% da renda bruta anual na declaração completa","Isenção total de IR no resgate","Não paga nenhum imposto","Rendimento garantido pelo governo","No PGBL, as contribuições podem ser abatidas em até 12% da renda bruta anual tributável (no modelo completo)."],
+[2,"No regime regressivo da previdência, qual é a menor alíquota?","10%, para prazos acima de 10 anos","5%, para prazos acima de 5 anos","15%, para qualquer prazo","0%, após 20 anos","A tabela vai de 35% (até 2 anos) a 10% (acima de 10 anos)."],
+[2,"Qual característica define o consórcio?","Não tem juros, mas tem taxa de administração","Tem juros fixos e baixos","Dá o bem logo na adesão","É garantido pelo FGC","O consórcio não cobra juros. Cobra taxa de administração. A contemplação é por sorteio ou lance."],
+[2,"Qual característica do Pix está correta?","Funciona 24 horas por dia, todos os dias","Só funciona em dias úteis","Só funciona entre bancos de mesma bandeira","Tem horário limite às 18h","O Pix opera 24x7, inclusive feriados."],
+
+// ---------- Módulo 3 ----------
+[3,"Qual é o valor recomendado, em geral, para a reserva de emergência?","3 a 6 meses das despesas mensais","1 mês de salário","Equivalente a 5 anos de renda","10% do patrimônio","A regra geral é de 3 a 6 meses de despesas. Para renda instável, mais."],
+[3,"Como se calcula o patrimônio líquido pessoal?","Ativos menos passivos","Receitas menos despesas","Ativos mais passivos","Renda anual dividida por 12","PL = ativos − passivos."],
+[3,"Qual dívida geralmente deve ser quitada primeiro?","A de juros mais altos, como o cartão rotativo","A de prazo mais longo","A de menor valor","A que tem garantia de imóvel","Dívidas com maiores juros crescem mais rápido e devem ser priorizadas."],
+[3,"Qual produto combina mais com um investidor conservador?","Tesouro Selic","Opções de compra","Fundo de ações pequenas empresas","COE de capital em risco","O conservador prioriza segurança e liquidez, como o Tesouro Selic."],
+[3,"Um cliente conservador quer investir em um produto de alto risco. O que o profissional deve fazer?","Explicar os riscos, apresentar alternativas adequadas e registrar o alerta","Recusar o atendimento e encerrar o contato","Fechar a operação sem comentar nada","Mudar o perfil do cliente sem avisar","O profissional deve alertar, orientar e documentar. A decisão final é do cliente."],
+[3,"Com que frequência máxima o perfil do investidor (suitability) deve ser atualizado?","A cada 24 meses","A cada 5 anos","Uma única vez, na abertura da conta","A cada 10 anos","A atualização máxima prevista é de 24 meses."],
+[3,"Para que serve o princípio \"conheça seu cliente\" (KYC)?","Conhecer o cliente, sua origem de recursos e capacidade financeira, prevenindo fraudes e lavagem","Fazer propaganda de produtos","Aumentar as tarifas","Evitar que o cliente mude de banco","O KYC protege a instituição e o profissional e é base da prevenção à lavagem de dinheiro."],
+[3,"O que a instituição NÃO pode fazer após comunicar uma operação suspeita ao COAF?","Avisar o cliente sobre a comunicação","Manter registro da operação","Seguir monitorando a conta","Atualizar o cadastro","É proibido avisar o cliente. A comunicação é sigilosa."],
+[3,"Qual órgão fiscaliza o cumprimento da LGPD?","ANPD","CVM","COAF","SUSEP","A Autoridade Nacional de Proteção de Dados (ANPD) fiscaliza a LGPD."],
+[3,"Usar informação relevante e ainda não divulgada para obter vantagem em negociações é:","Insider trading","Spoofing","Churning","Money pass","Insider trading é o uso de informação privilegiada. É crime pelo art. 27-D da Lei 6.385/76."],
+[3,"Girar excessivamente a carteira do cliente com o objetivo de gerar corretagem é:","Churning","Layering","Spoofing","Front running","Churning é operar demais na conta do cliente só para gerar comissão."],
+[3,"O que caracteriza o spoofing?","Colocar ordens sem intenção de executá-las, para enganar o mercado","Operar à frente da ordem de um cliente","Repassar informação privilegiada","Pagar corretagem em excesso","Spoofing é inserir ordens falsas para manipular a percepção de preço."],
+[3,"Segundo o Código de Conduta Ética da Anbima, um profissional com CPA NÃO deve:","Prometer rentabilidade ou garantir resultados futuros","Informar os riscos dos produtos","Adequar o produto ao perfil do cliente","Manter-se atualizado tecnicamente","O código proíbe promessa de rentabilidade, garantia de resultado e dizer que o produto não tem risco."],
+[3,"Qual dos itens abaixo é um dos nove princípios éticos da Anbima?","Sigilo de informações confidenciais","Maximização do lucro","Fidelização do cliente","Redução de custos","Os nove princípios incluem comportamento ético, responsabilidade, boa-fé, conformidade, cumprimento das obrigações, atualização técnica, independência, honestidade e sigilo."],
+[3,"Sobre as regras do Código de Conduta para candidatos, é correto afirmar que:","Não é permitido compartilhar o conteúdo dos exames, pois isso é fraude contra a certificação","É permitido consultar o celular durante a prova","É permitido se apresentar como certificado antes de passar","É permitido usar certificação vencida por até 1 ano","Compartilhar o conteúdo da prova, usar eletrônicos e se apresentar como certificado antes da hora são condutas vedadas."],
+
+// ---------- Módulo 4 ----------
+[4,"O que significa a sigla ESG?","Ambiental, Social e Governança","Economia, Segurança e Gestão","Equidade, Solidariedade e Gestão","Estratégia, Serviço e Garantia","ESG: Environmental, Social and Governance."],
+[4,"O que é greenwashing?","Fingir ser sustentável sem de fato adotar práticas sustentáveis","Investir apenas em energia renovável","Auditoria ambiental obrigatória","Imposto sobre emissões","Greenwashing é maquiar de sustentável um produto ou empresa que não é."],
+[4,"O que é um smart contract?","Programa que executa automaticamente as regras combinadas quando as condições ocorrem","Contrato impresso assinado por duas testemunhas","Seguro digital contra ataques","Cartão de crédito inteligente","É um contrato autoexecutável, normalmente em blockchain."],
+[4,"Qual é a ideia central do Open Finance?","Compartilhar dados do cliente entre instituições com o consentimento dele","Abrir contas sem documento","Eliminar os bancos","Cobrar tarifa do cliente","Com consentimento, o cliente leva seus dados de uma instituição à outra."],
+[4,"O Drex é:","O projeto de moeda digital do Banco Central (CBDC)","Uma criptomoeda privada","Uma bolsa de valores","Um tipo de fundo","O Drex é a versão digital do real, emitida pelo Banco Central."],
+[4,"O que é o sandbox regulatório?","Ambiente em que o regulador permite testar inovações com regras mais flexíveis e supervisão","Sistema de segurança contra fraudes","Conta bancária para empresas","Tipo de cartão pré-pago","Sandbox é um ambiente controlado de teste, do BC e da CVM, para inovações."]
+];
+
+const SIMULADO1 = [
+// ---- Bloco 1 (10) ----
+[1,"Quem compõe o CMN?","Ministro da Fazenda, Ministro do Planejamento e Orçamento e Presidente do Banco Central","Presidente da República, Ministro da Fazenda e presidente da CVM","Presidente do BC, presidente da CVM e presidente da SUSEP","Ministro da Fazenda, presidente do BNDES e presidente da B3","O CMN tem três membros: os dois ministros e o presidente do Banco Central."],
+[1,"Qual órgão supervisiona as seguradoras e a previdência privada aberta?","SUSEP","PREVIC","CVM","Banco Central","A SUSEP cuida de seguros, capitalização e previdência aberta. A PREVIC cuida dos fundos de pensão."],
+[1,"Qual órgão fiscaliza as entidades fechadas de previdência complementar (fundos de pensão)?","PREVIC","SUSEP","CVM","Anbima","Fundos de pensão (EFPC) são fiscalizados pela PREVIC."],
+[1,"Um Copom que decide elevar a Selic está adotando política monetária:","Contracionista","Expansionista","Cambial","Fiscal","Subir juros é política contracionista, para conter inflação e consumo."],
+[1,"O que acontece com o crédito disponível quando o Banco Central aumenta o depósito compulsório?","Diminui, pois os bancos têm menos dinheiro para emprestar","Aumenta, pois os bancos recebem mais recursos","Não se altera","Os juros do cartão ficam gratuitos","Mais compulsório = menos dinheiro livre para emprestar."],
+[1,"O IGP-M, muito usado em reajuste de aluguel, é calculado por:","FGV","IBGE","Banco Central","Fipe","O IGP-M é da FGV. O IPCA é do IBGE."],
+[1,"Um título rendeu 8% no ano e a inflação foi de 3%. O ganho real, aproximadamente, foi de:","4,85%","5,00%","11,24%","5,50%","1,08 ÷ 1,03 − 1 = 4,85%."],
+[1,"Uma duplicata de R$ 5.000 é antecipada 3 meses antes do vencimento, com desconto comercial simples de 2% ao mês. Qual é o valor recebido?","R$ 4.700","R$ 4.900","R$ 4.800","R$ 5.300","D = 5.000 × 0,02 × 3 = 300. Valor recebido = 4.700."],
+[1,"O sistema que faz a custódia e a liquidação dos títulos públicos federais é o:","Selic","SPI","Pix","Sistema de Pagamentos de Cartões","O Selic (sistema) registra e liquida títulos públicos federais."],
+[1,"Pela CVM 30, a pessoa física com mais de R$ 10 milhões em investimentos financeiros, que declara por escrito, é considerada investidora:","Profissional","Qualificada, mas não profissional","De varejo","Institucional","Mais de R$ 10 milhões: profissional. Mais de R$ 1 milhão: qualificada."],
+// ---- Bloco 2 (20) ----
+[2,"O Tesouro IPCA+ (sem juros semestrais) corresponde a qual título?","NTN-B Principal","LTN","LFT","NTN-F","NTN-B Principal = Tesouro IPCA+ sem cupom."],
+[2,"Quando os juros de mercado sobem, o preço de um título prefixado já comprado tende a:","Cair","Subir","Ficar igual","Dobrar","Juros sobem, preço dos prefixados cai (marcação a mercado)."],
+[2,"Qual título público é o mais indicado para a reserva de emergência, por oscilar pouco?","Tesouro Selic","Tesouro Prefixado de longo prazo","Tesouro IPCA+ de 2045","Debênture conversível","O Tesouro Selic tem a menor oscilação de preço e liquidez diária."],
+[2,"O IOF sobre aplicações de renda fixa incide:","Apenas em resgates com menos de 30 dias","Em qualquer resgate","Somente em resgates após 1 ano","Somente no depósito inicial","O IOF só incide nos resgates nos primeiros 30 dias, de forma regressiva."],
+[2,"O CRI tem qual conjunto de características?","Emitido por securitizadora, isento de IR para pessoa física e sem cobertura do FGC","Emitido por banco, com IR regressivo e com FGC","Emitido pelo governo e com garantia do Tesouro","Emitido por companhia aberta, sem lastro, isento de IR","CRI e CRA são títulos de securitizadoras, isentos para PF e sem FGC."],
+[2,"O que é o rating de crédito?","Nota que avalia o risco de calote do emissor","Taxa de juros de um título","Índice de inflação","Tipo de ação preferencial","Agências como S&P, Moody's e Fitch atribuem notas de risco de crédito."],
+[2,"A debênture conversível pode ser transformada em:","Ações da própria empresa emissora","Moeda estrangeira","Imóveis","Títulos públicos","Conversível vira ações do emissor. Permutável vira ações de outra empresa."],
+[2,"Na poupança, se o cliente sacar antes da data de aniversário, o que acontece?","Perde o rendimento daquele período","Paga multa de 10%","Perde todo o capital","Nada, rende normalmente","Os rendimentos só são creditados na data de aniversário."],
+[2,"A oferta pública de ações em que uma empresa vende suas ações ao mercado pela primeira vez é chamada de:","IPO","OPA","Follow-on","Split","IPO é a primeira oferta. Follow-on é uma nova oferta depois do IPO."],
+[2,"Um investidor tem 100 ações e a empresa aprova bonificação de 10%. Quantas ações ele terá?","110","100, com preço 10% menor","90","1.000","Bonificação de 10%: ganha 10 ações a mais (110)."],
+[2,"Uma empresa faz grupamento de 10 ações em 1. Um acionista tinha 1.000 ações a R$ 2,00. Depois do grupamento terá:","100 ações a R$ 20,00","10.000 ações a R$ 0,20","1.000 ações a R$ 20,00","100 ações a R$ 2,00","O valor total (R$ 2.000) não muda: 100 ações × R$ 20."],
+[2,"Qual é a alíquota de IR sobre lucro em day trade com ações, para pessoa física?","20%","15%","22,5%","Isento até R$ 20 mil","Day trade: 20%. Swing trade: 15%."],
+[2,"O que é tag along?","Direito do minoritário de vender suas ações em condições semelhantes às do controlador, em caso de venda do controle","Direito de receber dividendos extras","Obrigação de vender ações a pedido do controlador","Aumento de capital da empresa","Tag along protege o minoritário numa venda de controle."],
+[2,"Qual agente do fundo é responsável por guardar os ativos da carteira?","Custodiante","Gestor","Distribuidor","Auditor","O custodiante faz a guarda dos ativos."],
+[2,"A taxa de performance de um fundo é cobrada sobre:","O que exceder um índice de referência (benchmark)","Todo o patrimônio","Todo valor aplicado","O valor resgatado","Performance é cobrada sobre o que passar do benchmark, respeitada a linha d'água."],
+[2,"Os rendimentos dos fundos imobiliários, para pessoa física, são isentos de IR quando:","O fundo é negociado em bolsa, tem ao menos 100 cotistas e o cotista tem menos de 10% das cotas","Sempre, sem exceção","Nunca","O cotista tem mais de 50% das cotas","São as condições para a isenção dos rendimentos distribuídos."],
+[2,"No VGBL, o imposto de renda no resgate incide sobre:","Apenas o rendimento","O total aplicado","Só as contribuições","Nada, é isento","No VGBL o IR incide só sobre os rendimentos. No PGBL, sobre o total."],
+[2,"A portabilidade de um plano de previdência para outra instituição:","Pode ser feita sem incidência de IR no momento da transferência","Obriga a pagar imposto na hora","Só vale para planos do mesmo banco","É proibida","A portabilidade preserva o benefício fiscal e não gera IR na hora."],
+[2,"Qual destas modalidades costuma ter a taxa de juros mais alta?","Cartão de crédito rotativo","Crédito consignado","Financiamento imobiliário","Empréstimo com garantia de imóvel","O rotativo do cartão e o cheque especial estão entre os juros mais altos, por não terem garantia."],
+[2,"Sobre a conta salário, é correto afirmar que:","É isenta de tarifas e pode ser transferida por portabilidade","Aceita depósitos de qualquer origem","Tem cobrança de manutenção mensal","Só pode ser movimentada por boleto","A conta salário recebe apenas o salário do empregador e é isenta de tarifas."],
+// ---- Bloco 3 (15) ----
+[3,"Em qual fase do ciclo de vida o foco é formar reserva e começar a poupar?","Acumulação de capital","Preservação de capital","Distribuição de renda","Crescimento patrimonial pleno","A acumulação ocorre no início da vida profissional."],
+[3,"Qual é o foco do investidor na fase de preservação de capital?","Proteger o patrimônio já construído","Assumir riscos altos","Contrair mais dívidas","Gastar o patrimônio","Perto da aposentadoria, o foco é proteger o que foi conquistado."],
+[3,"A capacidade de poupança de uma família é obtida por:","Receitas menos despesas","Patrimônio dividido por despesas","Ativos menos passivos","Despesas fixas mais variáveis","Capacidade de poupança = receitas − despesas."],
+[3,"A reserva de emergência deve ser aplicada em ativo de:","Alta liquidez e baixo risco","Alto risco e alta rentabilidade","Longo prazo, sem liquidez","Renda variável","A reserva precisa estar disponível rápido e sem risco de perda."],
+[3,"Qual é a primeira etapa do planejamento financeiro pessoal?","Definir objetivos e metas","Contratar um investimento","Contratar seguro","Quitar todas as dívidas","O planejamento começa pelos objetivos do cliente."],
+[3,"O PGBL traz vantagem fiscal para quem faz a declaração de IR no modelo:","Completo","Simplificado","Qualquer modelo","Isento","Só quem usa o modelo completo pode abater as contribuições."],
+[3,"Quais fatores definem o perfil do investidor?","Objetivo, situação financeira e conhecimento","Idade, sexo e profissão","Banco, cidade e salário","Apenas a renda mensal","O perfil considera objetivo, situação financeira e conhecimento, entre outros."],
+[3,"Recomendar um produto apenas porque paga maior comissão ao profissional caracteriza:","Conflito de interesses","Suitability","Diversificação","Planejamento","Colocar o ganho próprio acima do interesse do cliente é conflito de interesses."],
+[3,"Qual medida ajuda a gerenciar conflitos de interesse?","Segregação de funções","Aumento de comissão","Omitir o conflito do cliente","Eliminar o compliance","Segregar funções separa quem recomenda de quem executa e reduz o conflito."],
+[3,"O risco regulatório é aquele em que:","A instituição ou o profissional pode ser punido por descumprir normas","O mercado cai","O cliente não paga","O sistema fica fora do ar","Risco regulatório = sanções por não cumprir a regulação."],
+[3,"Na etapa da lavagem de dinheiro em que o dinheiro ilegal é misturado e sua origem escondida, temos:","Ocultação","Colocação","Integração","Prescrição","As etapas são colocação, ocultação e integração."],
+[3,"Uma pessoa politicamente exposta (PEP) exige da instituição financeira:","Atenção reforçada no monitoramento","Recusa automática de abertura de conta","Isenção de cadastro","Cadastro simplificado","A PEP exige diligência reforçada, não proibição."],
+[3,"O sigilo bancário (Lei Complementar 105/2001) pode ser quebrado:","Por ordem judicial ou obrigação legal","A qualquer momento, a pedido do gerente","Por solicitação de um amigo do cliente","Nunca, em nenhuma hipótese","O sigilo tem exceções previstas em lei e em decisão judicial."],
+[3,"Operar à frente de uma ordem de cliente, usando a informação de que ele vai comprar ou vender, é:","Front running","Spoofing","Churning","Money pass","Front running é aproveitar a ordem do cliente em benefício próprio."],
+[3,"O insider trading primário é praticado por quem:","Tem acesso direto à informação privilegiada, por cargo ou função","Recebe a dica de um amigo","Lê o jornal","Opera por robô","O primário tem acesso direto. O secundário recebe a informação de alguém."],
+// ---- Bloco 4 (5) ----
+[4,"O \"G\" de ESG se refere a:","Governança","Gestão","Garantia","Globalização","G de Governance: transparência, ética e estrutura de decisão."],
+[4,"Na estratégia ESG de exclusão (negative screening), o investidor:","Deixa de investir em certos setores, como armas e tabaco","Seleciona as melhores empresas de cada setor","Compra todas as ações do mercado","Só investe em renda fixa","Exclusão = evitar setores ou empresas que não atendem ao critério."],
+[4,"A tokenização consiste em:","Representar um ativo (imóvel, título) por um token digital","Cobrar imposto sobre criptoativos","Transformar moeda em ouro","Destruir ativos digitais","Tokenizar é transformar um ativo em token negociável em blockchain."],
+[4,"O Open Insurance, no Brasil, é regulado por qual órgão?","SUSEP","CVM","Banco Central","Anbima","Seguros são da SUSEP. Open Finance é do BC. Open Investment é da CVM."],
+[4,"O adquirente, em meios de pagamento, é a empresa que:","Credencia lojistas e processa as transações de cartão","Emite o cartão ao cliente","Guarda o dinheiro dos clientes","Define a taxa Selic","O adquirente credencia o estabelecimento e captura a transação."]
+];
+
+const SIMULADO2 = [
+// ---- Bloco 1 (10) ----
+[1,"Qual instituição tem o monopólio da emissão de papel-moeda no Brasil?","Banco Central","CMN","Casa da Moeda, por decisão própria","Tesouro Nacional","O Banco Central emite as cédulas e moedas."],
+[1,"O órgão normativo da previdência complementar fechada é o:","CNPC","CNSP","CMN","SUSEP","CNPC cria as regras. PREVIC fiscaliza."],
+[1,"Quando o Banco Central empresta dinheiro a um banco com falta de liquidez, o instrumento usado é o:","Redesconto","Open market","Compulsório","Swap cambial","Redesconto é o empréstimo de última instância do BC aos bancos."],
+[1,"A taxa de juros de um dia entre bancos, usada como referência para fundos de renda fixa, é a:","Taxa DI (CDI)","TR","IPCA","IGP-M","O CDI é a taxa dos empréstimos interbancários de um dia, próxima da Selic."],
+[1,"O PIB é composto por:","Consumo, investimento, gastos do governo e exportações líquidas","Apenas consumo das famílias","Somente exportações","Apenas gasto do governo","PIB = C + I + G + (X − M)."],
+[1,"A inflação oficial, usada na meta, é o:","IPCA","IGP-M","IPC-Fipe","TR","O IPCA é calculado pelo IBGE e usado no regime de metas."],
+[1,"R$ 2.000 aplicados a juros simples de 1,5% ao mês durante 8 meses resultam em um montante de:","R$ 2.240","R$ 2.120","R$ 2.254","R$ 2.360","Juros = 2.000 × 0,015 × 8 = 240. Montante = 2.240."],
+[1,"Na tabela Price, as parcelas são:","Constantes","Decrescentes","Crescentes","Iguais à amortização","Price tem parcela fixa. A amortização cresce e os juros caem."],
+[1,"Um projeto com VPL positivo indica que:","O retorno supera o custo de oportunidade e vale a pena","O projeto dará prejuízo","O payback é infinito","A TIR é zero","VPL positivo: o projeto gera valor acima do custo de capital."],
+[1,"O risco de que a falência de uma instituição contamine outras e afete todo o sistema é chamado de:","Risco sistêmico","Risco de liquidez","Risco cambial","Risco de imagem","Risco sistêmico é o efeito dominó na economia."],
+// ---- Bloco 2 (20) ----
+[2,"O Tesouro Prefixado com Juros Semestrais corresponde à:","NTN-F","LTN","LFT","NTN-B","NTN-F é prefixada e paga juros a cada 6 meses."],
+[2,"Qual título é lastreado em créditos do agronegócio e emitido por banco?","LCA","LCI","CRI","LC","LCA = Letra de Crédito do Agronegócio. LCI é imobiliário."],
+[2,"Qual par de produtos tem cobertura do FGC?","CDB e LCI","CRA e CRI","Debêntures e COE","Fundos de investimento e ações","CDB, LCI, LCA, RDB e poupança têm FGC. CRI, CRA e debêntures não."],
+[2,"Um CDB resgatado com 100 dias e rendimento de R$ 500 paga, de IR:","R$ 112,50","R$ 100,00","R$ 87,50","R$ 75,00","Até 180 dias, a alíquota é 22,5%. 22,5% de 500 = 112,50."],
+[2,"Se a Selic estiver em 7,5% ao ano, a poupança rende:","70% da Selic mais TR","0,5% ao mês mais TR","100% da Selic","IPCA mais 4%","Com Selic igual ou abaixo de 8,5%, rende 70% da Selic + TR."],
+[2,"A ação preferencial (PN) normalmente dá:","Prioridade no recebimento de dividendos, em regra sem direito a voto","Direito de voto pleno","Garantia de dividendo fixo em reais","Direito de vender para o governo","PN: prioridade nos dividendos e geralmente sem voto."],
+[2,"No mercado secundário de ações, o dinheiro da venda vai para:","O investidor que vendeu","A empresa emissora","O Banco Central","A CVM","No secundário, os investidores negociam entre si."],
+[2,"Free float é:","A porcentagem de ações disponível para negociação no mercado","O valor de mercado da empresa","O lucro distribuído","A taxa de corretagem","Free float = ações em circulação, que não estão nas mãos dos controladores."],
+[2,"A assembleia que ocorre todo ano para aprovar contas e decidir sobre a distribuição do lucro é a:","AGO","AGE","Assembleia de debenturistas","Comitê de auditoria","AGO é a assembleia ordinária anual. AGE trata de assuntos específicos."],
+[2,"O Ibovespa é:","Carteira teórica das ações mais negociadas da B3","Taxa de juros do Banco Central","Índice de inflação","Lista de empresas sem governança","O Ibovespa mede o desempenho médio das ações mais negociadas."],
+[2,"Um fundo cambial deve manter, em regra, pelo menos qual parcela da carteira atrelada à variação do câmbio?","80%","67%","50%","100%","Fundo cambial: 80%. Fundo de ações: 67%."],
+[2,"No come-cotas de um fundo de longo prazo, a alíquota é de:","15%","20%","22,5%","10%","Longo prazo: 15%. Curto prazo: 20%."],
+[2,"Na classe fechada de um fundo, o cotista que quer sair antes do fim do prazo normalmente:","Vende suas cotas a outro investidor, por exemplo na bolsa","Resgata a qualquer momento junto ao administrador","Perde todo o capital","Pede o dinheiro de volta ao gestor","Classe fechada não permite resgate. A saída é a venda das cotas no mercado."],
+[2,"Em fundo com responsabilidade limitada, se o patrimônio líquido ficar negativo, o cotista:","Responde apenas até o valor que investiu","Responde com todos os seus bens","Responde só com bens da família","Não tem prejuízo algum","Responsabilidade limitada: o cotista não paga além do valor das cotas."],
+[2,"Os fundos imobiliários chamados \"de papel\" investem principalmente em:","Títulos de crédito imobiliário, como CRI e LCI","Shoppings e lajes corporativas","Terrenos","Ações de construtoras","Papel = títulos de crédito imobiliário. Tijolo = imóveis."],
+[2,"No regime progressivo da previdência, a alíquota aplicada:","Segue a tabela do IR da pessoa física, com retenção de 15% na fonte a ser ajustada","É fixa em 10%","Cai com o tempo até 10%","É sempre zero","No progressivo há retenção de 15% na fonte e ajuste na declaração anual."],
+[2,"Na renda mensal vitalícia, o beneficiário recebe:","Pagamentos enquanto viver","Pagamento único","Parcelas por 5 anos","Apenas os rendimentos do primeiro ano","A renda vitalícia é paga enquanto o participante estiver vivo."],
+[2,"No crédito consignado, os juros costumam ser menores porque:","A parcela é descontada direto da folha de pagamento ou benefício, reduzindo o risco","O banco não cobra imposto","Não existe limite de valor","É isento de IOF","O desconto na folha reduz a inadimplência e o juro."],
+[2,"No seguro, a franquia é:","A parte do prejuízo que fica a cargo do segurado","O valor pago pelo segurado ao contratar","O evento coberto","Uma multa por atraso","Franquia = parte do prejuízo que o segurado assume. Prêmio é o valor pago."],
+[2,"O COE com capital protegido significa que:","O valor investido volta no vencimento, ainda que o cenário seja desfavorável","O rendimento é garantido pelo FGC","Não existe risco de crédito do emissor","A rentabilidade é fixa e conhecida","Capital protegido protege o principal no vencimento, mas há risco de crédito do banco e não há FGC."],
+// ---- Bloco 3 (15) ----
+[3,"Na fase de distribuição de renda, o investidor:","Vive do patrimônio acumulado","Está começando a poupar","Assume o máximo risco","Faz o primeiro financiamento","Distribuição de renda é a fase da aposentadoria."],
+[3,"Entre as dívidas abaixo, qual costuma ser a mais cara?","Cartão de crédito rotativo","Financiamento imobiliário","Consignado","Empréstimo com garantia de imóvel","O rotativo do cartão tem os juros mais altos."],
+[3,"Para uma pessoa com renda instável, o tamanho da reserva de emergência deve ser:","Maior que a de quem tem renda fixa","Menor que a de quem tem renda fixa","Igual a zero","Equivalente a um mês de gastos","Quem tem renda variável precisa de colchão maior (6 a 12 meses)."],
+[3,"A casa em que a família mora é classificada, no balanço patrimonial pessoal, como:","Ativo de uso","Ativo de não uso","Passivo","Receita","Ativo de uso não gera renda. Ativos de não uso são investimentos."],
+[3,"Um investidor moderado, em geral:","Aceita algum risco em busca de maior retorno","Não aceita nenhum risco","Aceita risco máximo","Não investe","O moderado equilibra segurança e retorno."],
+[3,"Qual é uma obrigação do profissional na avaliação do perfil do cliente (suitability)?","Documentar e arquivar as informações e o questionário respondido","Descartar o questionário","Preencher sozinho sem consultar o cliente","Alterar o perfil para vender mais","A documentação e o registro das informações são exigidos."],
+[3,"A escuta ativa significa:","Prestar atenção de verdade ao cliente para entender suas necessidades","Falar mais que o cliente","Interromper para oferecer produtos","Ler um roteiro pronto","Escuta ativa é ouvir para compreender."],
+[3,"Declarar ao cliente a existência de um conflito de interesse é uma forma de:","Divulgação obrigatória, medida de gestão do conflito","Ocultar o risco","Aumentar a comissão","Diluir a responsabilidade do profissional","A divulgação dá transparência e permite ao cliente decidir."],
+[3,"O risco de imagem é:","A perda de confiança de clientes e do mercado em razão de um fato negativo","A queda do preço do produto","O risco de a bolsa cair","Um defeito no sistema","Risco de imagem ou reputação afeta a credibilidade."],
+[3,"Um cadastro de cliente desatualizado representa:","Fragilidade para o controle de lavagem de dinheiro e de risco","Vantagem para o cliente","Nada, é irrelevante","Obrigação de abrir nova conta","O cadastro atualizado é a base do KYC e da prevenção."],
+[3,"Qual órgão recebe as comunicações de operações suspeitas de lavagem de dinheiro?","COAF","ANPD","SUSEP","PREVIC","O COAF (Unidade de Inteligência Financeira) recebe as comunicações."],
+[3,"Segundo a LGPD, o tratamento de dados pessoais deve ter:","Finalidade definida e, em regra, consentimento do titular","Autorização do chefe do cliente","Nenhuma justificativa, desde que o dado seja público","Pagamento ao titular","A LGPD exige finalidade, necessidade e base legal, como o consentimento."],
+[3,"Uma operação em que uma parte repassa ganhos ou perdas à outra, de forma combinada, fora das condições reais do mercado, é:","Money pass","Churning","Front running","Spoofing","Money pass é a transferência artificial de resultados entre partes."],
+[3,"Colocar várias ordens em diferentes níveis de preço para dar falsa impressão de demanda ou oferta é:","Layering","Churning","Front running","Insider trading","Layering = ordens em camadas para enganar o mercado."],
+[3,"Realizar operações para alterar artificialmente preço, volume ou liquidez, induzindo investidores ao erro, é crime previsto no:","Art. 27-C da Lei 6.385/76 (manipulação de mercado)","Art. 27-D (insider trading)","Art. 27-E (exercício irregular)","Lei 9.613/98 (lavagem)","O art. 27-C trata de manipulação de mercado."],
+// ---- Bloco 4 (5) ----
+[4,"O PRI (Princípios para o Investimento Responsável) é uma iniciativa que:","Promove a incorporação do ESG nas decisões de investimento, com apoio da ONU","Fiscaliza fundos no Brasil","Emite moeda digital","Regula meios de pagamento","O PRI é uma rede internacional de investidores ligada à ONU."],
+[4,"A stablecoin é:","Criptomoeda com valor atrelado a um ativo estável, como o dólar","Moeda emitida pelo Banco Central","Ação de empresa de tecnologia","Título de renda fixa digital","Stablecoin tenta manter a paridade com um ativo de referência."],
+[4,"Uma DAO é:","Organização autônoma descentralizada, governada por votos dos detentores de tokens","Departamento de análise de ordens","Tipo de fundo imobiliário","Sistema de pagamentos do BC","DAO = Decentralized Autonomous Organization."],
+[4,"Chatbots e assistentes virtuais no atendimento bancário:","Permitem atendimento rápido e 24 horas, mas o cliente deve poder falar com uma pessoa","Substituem totalmente a necessidade de equipe humana","São proibidos pela regulação","Só funcionam por telefone","A IA amplia o atendimento, mas não elimina o canal humano."],
+[4,"A desintermediação financeira é:","A redução do papel dos intermediários tradicionais, com acesso direto a produtos e serviços","O aumento das tarifas bancárias","A fusão de bancos","A criação de impostos","Fintechs e plataformas permitem ao cliente operar sem passar pelo banco tradicional."]
+];
+
+
+// ---------- utilidades ----------
+const $ = s => document.querySelector(s);
+const PESOS = {1:10, 2:20, 3:15, 4:5};          // questões por bloco em 50
+const NOMES = {1:"Sistema financeiro e economia",2:"Produtos do mercado financeiro",3:"Relacionamento, ética e PLD",4:"Inovação e mercado"};
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function prep(q){ // q=[b,enun,certa,e1,e2,e3,exp]
+  const opts=shuffle([q[2],q[3],q[4],q[5]]);
+  return {b:q[0],q:q[1],opts:opts,ans:opts.indexOf(q[2]),e:q[6],pick:null,flag:false};
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function fmt(s){const m=Math.floor(s/60),h=Math.floor(m/60);return String(h).padStart(2,"0")+":"+String(m%60).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+const KEY="cpa_estudos_v1";
+let S={secoes:{},fix:{},sims:[]};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+// ---------- navegação ----------
+let tab="inicio", sub=null, timerH=null;
+const TABS=[["inicio","Início"],["modulos","Módulos"],["exercicios","Exercícios"],["simulados","Simulados"],["resumo","Resumão"],["progresso","Progresso"]];
+function drawNav(){
+  $("#nav").innerHTML=TABS.concat(SMP?[["tutor","Tutor Claude"]]:[]).map(t=>`<button class="${tab===t[0]?"on":""}" onclick="go('${t[0]}')">${t[1]}</button>`).join("");
+}
+function ask(msg,yes){const d=document.createElement("div");d.className="modal";d.innerHTML=`<div class="mbox"><p>${esc(msg)}</p><div class="row"><button class="btn" id="mY">Sim</button><button class="btn sec" id="mN">Cancelar</button></div></div>`;document.body.appendChild(d);d.querySelector("#mY").onclick=()=>{d.remove();yes()};d.querySelector("#mN").onclick=()=>d.remove()}
+function go(t,s,force){ if(!force && timerH && sim && !sim.fim){ ask("Você está no meio de um simulado. Sair agora perde o andamento. Sair mesmo?",()=>go(t,s,true)); return; } stopTimer(); tab=t; sub=s||null; sim=null; fix=null; window.scrollTo(0,0); render(); }
+function render(){
+  drawNav();
+  const f={inicio:vInicio,modulos:vModulos,exercicios:vExercicios,simulados:vSimulados,resumo:vResumo,progresso:vProgresso,tutor:vTutor}[tab];
+  $("#app").innerHTML=""; f();
+}
+
+// ---------- início ----------
+function pctSecoes(){let t=0,d=0;MODULOS.forEach(m=>m.secoes.forEach((s,i)=>{t++;if(S.secoes[m.id+"-"+i])d++}));return [d,t]}
+function vInicio(){
+  const [d,t]=pctSecoes();
+  $("#app").innerHTML=`
+  <div class="card">
+    <h2>Como usar este material</h2>
+    <p>Este material cobre os 4 blocos do programa da CPA, na mesma proporção da prova. Ele não substitui o texto oficial, mas organiza o conteúdo em linguagem simples e dá bastante prática.</p>
+    <ol>
+      <li><b>Leia um módulo</b> (aba Módulos). Marque cada seção como lida.</li>
+      <li><b>Faça os exercícios</b> do módulo logo em seguida (aba Exercícios). A resposta aparece na hora, com explicação.</li>
+      <li><b>Revise o Resumão</b> com os números que mais caem.</li>
+      <li><b>Faça os simulados</b> (aba Simulados): 50 questões, 2h30, mínimo de 35 acertos, igual à prova.</li>
+      <li>Veja o <b>Progresso</b> para saber qual bloco precisa reforçar.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>A prova em números</h3>
+    <table>
+      <tr><th>Bloco</th><th>Peso</th><th>Questões (de 50)</th></tr>
+      <tr><td>1. Sistema financeiro, economia e regulação</td><td>20%</td><td>~10</td></tr>
+      <tr><td>2. Produtos do mercado financeiro</td><td>40%</td><td>~20</td></tr>
+      <tr><td>3. Relacionamento, ética e prevenção</td><td>30%</td><td>~15</td></tr>
+      <tr><td>4. Inovação e desenvolvimento de mercado</td><td>10%</td><td>~5</td></tr>
+    </table>
+    <p>Duração: <b>2h30</b>. Aprovação: <b>35 acertos em 50 (70%)</b>. Taxa de inscrição: R$ 225. O exame mistura múltipla escolha, cases e árvore de diálogo.</p>
+  </div>
+  <div class="card">
+    <h3>Sua leitura até agora</h3>
+    <div class="bar"><i style="width:${Math.round(100*d/t)}%"></i></div>
+    <p class="muted">${d} de ${t} seções lidas.</p>
+    <button class="btn" onclick="go('modulos')">Começar a estudar</button>
+  </div>
+  <div class="card">
+    <h3>Plano sugerido (4 semanas)</h3>
+    <table>
+      <tr><th>Semana</th><th>O que fazer</th></tr>
+      <tr><td>1</td><td>Módulo 1 (leitura e exercícios). Comece o Módulo 2 pela renda fixa.</td></tr>
+      <tr><td>2</td><td>Módulo 2 inteiro: renda variável, fundos, previdência, crédito. É o mais pesado, então leve o tempo que precisar.</td></tr>
+      <tr><td>3</td><td>Módulos 3 e 4. Faça o Simulado 1.</td></tr>
+      <tr><td>4</td><td>Revise os erros. Faça os Simulados 2 e Aleatório. Releia o Resumão.</td></tr>
+    </table>
+    <p class="muted">Estude de 45 a 60 minutos por dia. Constância vale mais do que maratona.</p>
+  </div>
+  <div class="card">
+    <h3>Importante</h3>
+    <ul>
+      <li>Este material foi montado a partir do Programa Detalhado e do Edital da Anbima. Regras e valores (impostos, taxas, limites) podem mudar. <b>Confira sempre no site oficial da Anbima</b> antes da prova.</li>
+      <li>As questões foram feitas para treino e não são as da prova real (a Anbima não divulga as questões).</li>
+      <li>Seu progresso fica salvo neste navegador.</li>
+    </ul>
+  </div>`;
+}
+
+// ---------- módulos ----------
+function vModulos(){
+  if(sub==null){
+    $("#app").innerHTML=`<h2>Módulos</h2><div class="grid">`+MODULOS.map(m=>{
+      const t=m.secoes.length,d=m.secoes.filter((s,i)=>S.secoes[m.id+"-"+i]).length;
+      return `<div class="card"><span class="pill">Bloco ${m.id} · ${m.peso}% da prova</span>
+      <h3 style="margin-top:8px">${m.nome}</h3><p class="muted">${m.resumo}</p>
+      <div class="bar"><i style="width:${Math.round(100*d/t)}%"></i></div><p class="muted">${d} de ${t} seções lidas</p>
+      <button class="btn" onclick="go('modulos',${m.id})">Abrir módulo</button></div>`}).join("")+`</div>`;
+    return;
+  }
+  const m=MODULOS.find(x=>x.id===sub);
+  $("#app").innerHTML=`<p><button class="btn sec" onclick="go('modulos')">← Todos os módulos</button></p>
+  <h2>Módulo ${m.id}: ${m.nome}</h2><p class="muted">Peso na prova: ${m.peso}%</p>`+
+  m.secoes.map((s,i)=>{const k=m.id+"-"+i,ok=!!S.secoes[k];
+    return `<div class="card"><h3>${s.t}</h3>${s.h}
+    <p class="noprint"><button class="btn ${ok?"sec":""}" onclick="marca('${k}')">${ok?"✓ Lida (clique para desmarcar)":"Marcar como lida"}</button></p></div>`}).join("")+
+  `<div class="card"><h3>Pronto para praticar?</h3><button class="btn" onclick="go('exercicios',${m.id})">Fazer exercícios do Módulo ${m.id}</button></div>`;
+}
+function marca(k){S.secoes[k]=!S.secoes[k];save();const y=window.scrollY;render();window.scrollTo(0,y)}
+
+// ---------- exercícios (fixação) ----------
+let fix=null;
+function vExercicios(){
+  if(fix){return drawFix()}
+  $("#app").innerHTML=`<h2>Exercícios de fixação</h2><p class="muted">Responda e veja na hora se acertou, com a explicação. Sem tempo e sem pressão.</p><div class="grid">`+
+  MODULOS.map(m=>{const n=FIXACAO.filter(q=>q[0]===m.id).length,h=S.fix[m.id];
+    return `<div class="card"><span class="pill">Bloco ${m.id}</span><h3 style="margin-top:8px">${m.nome}</h3>
+    <p class="muted">${n} questões${h?` · último resultado: ${h.a}/${h.t}`:""}</p>
+    <button class="btn" onclick="startFix(${m.id})">Começar</button></div>`}).join("")+`</div>`;
+  if(sub){startFix(sub);}
+}
+function startFix(b){fix={b,qs:shuffle(FIXACAO.filter(q=>q[0]===b)).map(prep),i:0,done:false};sub=null;drawFix()}
+function drawFix(){
+  const f=fix,q=f.qs[f.i];
+  if(f.done){
+    const a=f.qs.filter(x=>x.pick===x.ans).length;
+    S.fix[f.b]={a,t:f.qs.length,d:Date.now()};save();
+    const erradas=f.qs.filter(x=>x.pick!==x.ans);
+    $("#app").innerHTML=`<div class="card"><h2>Resultado: ${a} de ${f.qs.length}</h2>
+    <div class="bar"><i style="width:${Math.round(100*a/f.qs.length)}%"></i></div>
+    <p class="muted">${a/f.qs.length>=0.7?"Bom resultado. Continue assim.":"Abaixo de 70%. Releia o módulo e tente de novo."}</p>
+    <div class="row"><button class="btn" onclick="startFix(${f.b})">Refazer</button><button class="btn sec" onclick="go('exercicios')">Voltar</button><button class="btn sec" onclick="go('modulos',${f.b})">Reler módulo</button></div></div>`+
+    (erradas.length?`<div class="card"><h3>Para revisar (${erradas.length})</h3>`+erradas.map(x=>`<p><b>${esc(x.q)}</b><br>Certa: ${esc(x.opts[x.ans])}<br><span class="muted">${esc(x.e)}</span></p>`).join("")+`</div>`:"");
+    return;
+  }
+  $("#app").innerHTML=`<div class="card">
+    <div class="row"><span class="pill">Bloco ${f.b}</span><span class="muted">Questão ${f.i+1} de ${f.qs.length}</span><span class="sp"></span><button class="btn sec" onclick="go('exercicios')">Sair</button></div>
+    <h3 style="margin-top:12px">${esc(q.q)}</h3>
+    ${q.opts.map((o,i)=>`<button class="opt ${q.pick!=null?(i===q.ans?"ok":(i===q.pick?"bad":"")):""}" ${q.pick!=null?"disabled":""} onclick="fixPick(${i})">${"ABCD"[i]}) ${esc(o)}</button>`).join("")}
+    ${q.pick!=null?`<div class="exp"><b>${q.pick===q.ans?"Correto.":"Errado."}</b> ${esc(q.e)}</div>
+      ${SMP?`<p><button class="btn sec" onclick="iaFix()">Explicar melhor com o Claude</button></p><div class="exp ia" id="ia" hidden></div>`:""}
+      <p><button class="btn" onclick="fixNext()">${f.i+1<f.qs.length?"Próxima":"Ver resultado"}</button></p>`:""}
+  </div>`;
+}
+function fixPick(i){fix.qs[fix.i].pick=i;drawFix()}
+function fixNext(){if(fix.i+1<fix.qs.length){fix.i++}else{fix.done=true}drawFix()}
+
+// ---------- simulados ----------
+let sim=null;
+function vSimulados(){
+  if(sim){return drawSim()}
+  const h=S.sims.slice(-5).reverse();
+  $("#app").innerHTML=`<h2>Simulados</h2>
+  <p class="muted">Condições da prova: 50 questões, 2h30 de cronômetro, mínimo de 35 acertos. Você pode finalizar antes. Evite consultar o material durante.</p>
+  <div class="grid">
+   <div class="card"><h3>Simulado 1</h3><p class="muted">50 questões fixas, distribuídas por bloco como na prova.</p><button class="btn" onclick="startSim(1)">Iniciar</button></div>
+   <div class="card"><h3>Simulado 2</h3><p class="muted">50 questões fixas, diferentes do Simulado 1.</p><button class="btn" onclick="startSim(2)">Iniciar</button></div>
+   <div class="card"><h3>Simulado aleatório</h3><p class="muted">50 questões sorteadas de todo o banco (${FIXACAO.length+SIMULADO1.length+SIMULADO2.length} questões). Muda a cada vez.</p><button class="btn" onclick="startSim(3)">Iniciar</button></div>
+  </div>
+  ${h.length?`<div class="card"><h3>Últimos simulados</h3><table><tr><th>Quando</th><th>Simulado</th><th>Acertos</th><th>Resultado</th></tr>`+
+  h.map(x=>`<tr><td>${new Date(x.d).toLocaleString("pt-BR")}</td><td>${x.n}</td><td>${x.a}/${x.t}</td><td class="${x.a>=35?"pass":"fail"}">${x.a>=35?"Aprovado":"Reprovado"}</td></tr>`).join("")+`</table></div>`:""}`;
+}
+function startSim(n){
+  let qs,nome;
+  if(n===1){qs=SIMULADO1;nome="Simulado 1"}
+  else if(n===2){qs=SIMULADO2;nome="Simulado 2"}
+  else{
+    const banco=FIXACAO.concat(SIMULADO1,SIMULADO2);qs=[];
+    for(const b of [1,2,3,4]){qs=qs.concat(shuffle(banco.filter(q=>q[0]===b)).slice(0,PESOS[b]))}
+    nome="Aleatório";
+  }
+  sim={n:nome,qs:shuffle(qs).map(prep),i:0,t:150*60,fim:false};
+  startTimer();drawSim();
+}
+function startTimer(){
+  stopTimer();
+  timerH=setInterval(()=>{
+    if(!sim||sim.fim){stopTimer();return}
+    sim.t--; const el=$("#tm"); if(el)el.textContent=fmt(sim.t);
+    if(sim.t<=0){finSim(true)}
+  },1000);
+}
+function stopTimer(){if(timerH){clearInterval(timerH);timerH=null}}
+function drawSim(){
+  const s=sim;
+  if(s.fim){return drawRes()}
+  const q=s.qs[s.i],resp=s.qs.filter(x=>x.pick!=null).length;
+  $("#app").innerHTML=`<div class="card">
+    <div class="row"><b>${s.n}</b><span class="muted">Respondidas: ${resp}/${s.qs.length}</span><span class="sp"></span><span class="timer" id="tm">${fmt(s.t)}</span></div>
+    <div class="qnav">${s.qs.map((x,i)=>`<button class="${x.pick!=null?"done":""} ${x.flag?"flag":""} ${i===s.i?"cur":""}" onclick="simGo(${i})">${i+1}</button>`).join("")}</div>
+  </div>
+  <div class="card">
+    <div class="row"><span class="muted">Questão ${s.i+1} de ${s.qs.length}</span><span class="sp"></span><button class="btn sec" onclick="simFlag()">${q.flag?"Desmarcar revisão":"Marcar para revisar"}</button></div>
+    <h3 style="margin-top:12px">${esc(q.q)}</h3>
+    ${q.opts.map((o,i)=>`<button class="opt ${q.pick===i?"sel":""}" onclick="simPick(${i})">${"ABCD"[i]}) ${esc(o)}</button>`).join("")}
+    <div class="row" style="margin-top:12px">
+      <button class="btn sec" ${s.i===0?"disabled":""} onclick="simGo(${s.i-1})">Anterior</button>
+      <button class="btn sec" ${s.i===s.qs.length-1?"disabled":""} onclick="simGo(${s.i+1})">Próxima</button>
+      <span class="sp"></span>
+      <button class="btn" onclick="finSim(false)">Finalizar simulado</button>
+    </div>
+  </div>`;
+}
+function simPick(i){sim.qs[sim.i].pick=i;drawSim()}
+function simGo(i){sim.i=i;drawSim();window.scrollTo(0,0)}
+function simFlag(){sim.qs[sim.i].flag=!sim.qs[sim.i].flag;drawSim()}
+function finSim(auto,force){
+  const vazias=sim.qs.filter(x=>x.pick==null).length;
+  if(!auto && !force && vazias>0){ask("Ainda há "+vazias+" questão(ões) sem resposta. Finalizar mesmo assim?",()=>finSim(false,true));return}
+  sim.fim=true;stopTimer();
+  const a=sim.qs.filter(x=>x.pick===x.ans).length;
+  S.sims.push({n:sim.n,a,t:sim.qs.length,d:Date.now(),
+    b:[1,2,3,4].map(b=>{const l=sim.qs.filter(x=>x.b===b);return [l.filter(x=>x.pick===x.ans).length,l.length]})});
+  save();drawRes();window.scrollTo(0,0);
+}
+function drawRes(){
+  const s=sim,a=s.qs.filter(x=>x.pick===x.ans).length,t=s.qs.length,aprov=a>=35;
+  const usado=150*60-s.t;
+  const blocos=[1,2,3,4].map(b=>{const l=s.qs.filter(x=>x.b===b),c=l.filter(x=>x.pick===x.ans).length;return {b,c,n:l.length}});
+  $("#app").innerHTML=`<div class="card">
+    <h2>${s.n}: resultado</h2>
+    <p><span class="big ${aprov?"pass":"fail"}">${a}/${t}</span> <span class="${aprov?"pass":"fail"}"><b>${aprov?"Aprovado":"Reprovado"}</b></span> <span class="muted">(mínimo: 35 acertos) · tempo usado: ${fmt(usado)}</span></p>
+    <table><tr><th>Bloco</th><th>Acertos</th><th>%</th><th>Leitura</th></tr>
+    ${blocos.map(x=>{const p=x.n?Math.round(100*x.c/x.n):0;return `<tr><td>${x.b}. ${NOMES[x.b]}</td><td>${x.c}/${x.n}</td><td>${p}%</td><td>${p>=70?"Bom":(p>=50?"Reforçar":"Estudar de novo")}</td></tr>`}).join("")}
+    </table>
+    <div class="row"><button class="btn" onclick="go('simulados')">Voltar aos simulados</button></div>
+  </div>
+  <div class="card"><h3>Correção comentada</h3>`+
+  s.qs.map((q,i)=>{const ok=q.pick===q.ans;
+    return `<div style="margin:14px 0;padding-bottom:12px;border-bottom:1px solid var(--line)">
+    <b>${i+1}. ${esc(q.q)}</b> <span class="pill">Bloco ${q.b}</span><br>
+    <span class="${ok?"pass":"fail"}">${q.pick==null?"Sem resposta":(ok?"Você acertou":"Você errou")}</span>
+    ${q.pick!=null&&!ok?`<br>Sua resposta: ${esc(q.opts[q.pick])}`:""}
+    <br>Correta: <b>${esc(q.opts[q.ans])}</b>
+    <div class="exp">${esc(q.e)}</div>${SMP?`<p><button class="btn sec" onclick="iaSim(${i})">Explicar com o Claude</button></p><div class="exp ia" id="ia${i}" hidden></div>`:""}</div>`}).join("")+`</div>`;
+}
+
+// ---------- resumão ----------
+function vResumo(){
+  $("#app").innerHTML=`<h2>Resumão: o que mais cai</h2>
+  <div class="card"><h3>Quem faz o quê</h3><table>
+   <tr><th>Órgão</th><th>Papel</th></tr>
+   <tr><td>CMN</td><td>Regras gerais (moeda e crédito) e meta de inflação. Não executa.</td></tr>
+   <tr><td>Banco Central</td><td>Executa política monetária, fiscaliza bancos, emite moeda, Pix, Selic (sistema).</td></tr>
+   <tr><td>CVM</td><td>Fiscaliza ações, debêntures, fundos.</td></tr>
+   <tr><td>CNSP / SUSEP</td><td>Regras / fiscalização de seguros, capitalização e previdência aberta.</td></tr>
+   <tr><td>CNPC / PREVIC</td><td>Regras / fiscalização da previdência fechada (fundos de pensão).</td></tr>
+   <tr><td>Copom</td><td>Define a meta Selic (8 reuniões por ano).</td></tr>
+   <tr><td>COAF</td><td>Recebe comunicações de operações suspeitas (lavagem).</td></tr>
+   <tr><td>ANPD</td><td>Fiscaliza a LGPD.</td></tr>
+   <tr><td>Anbima</td><td>Autorregulação e certificações.</td></tr>
+  </table></div>
+  <div class="card"><h3>Números para decorar</h3><table>
+   <tr><th>Tema</th><th>Regra</th></tr>
+   <tr><td>FGC</td><td>R$ 250 mil por CPF por instituição. Teto global de R$ 1 milhão a cada 4 anos.</td></tr>
+   <tr><td>Quem tem FGC</td><td>Conta corrente, poupança, CDB, RDB, LCI, LCA, LC. Não tem: fundos, ações, debêntures, CRI, CRA, COE, títulos públicos.</td></tr>
+   <tr><td>IR renda fixa</td><td>22,5% (até 180 dias) · 20% (181-360) · 17,5% (361-720) · 15% (acima de 720). Só sobre o rendimento.</td></tr>
+   <tr><td>IOF renda fixa</td><td>Só até o 30º dia. Regressivo.</td></tr>
+   <tr><td>Isentos de IR (PF)</td><td>Poupança, LCI, LCA, CRI, CRA, debêntures incentivadas.</td></tr>
+   <tr><td>Poupança</td><td>Selic acima de 8,5%: 0,5% a.m. + TR. Selic até 8,5%: 70% da Selic + TR.</td></tr>
+   <tr><td>Ações (PF)</td><td>Swing trade 15% (isento até R$ 20 mil vendidos no mês) · Day trade 20%.</td></tr>
+   <tr><td>JCP</td><td>15% retido na fonte.</td></tr>
+   <tr><td>Come-cotas</td><td>Maio e novembro. Longo prazo 15%, curto prazo 20%. Fundos de ações: sem come-cotas, 15% no resgate.</td></tr>
+   <tr><td>Fundos por carteira</td><td>Renda fixa e cambial: 80%. Ações: 67%.</td></tr>
+   <tr><td>FII</td><td>Distribui no mínimo 95% do resultado semestral. Ganho de capital 20%.</td></tr>
+   <tr><td>PGBL</td><td>Dedução de até 12% da renda bruta anual. IR sobre o total. Modelo completo.</td></tr>
+   <tr><td>VGBL</td><td>IR só sobre o rendimento.</td></tr>
+   <tr><td>Regressivo</td><td>35% · 30% · 25% · 20% · 15% · 10% (2, 4, 6, 8, 10 anos e mais de 10).</td></tr>
+   <tr><td>Investidor qualificado</td><td>Mais de R$ 1 milhão (com declaração).</td></tr>
+   <tr><td>Investidor profissional</td><td>Mais de R$ 10 milhões (com declaração).</td></tr>
+   <tr><td>Reserva de emergência</td><td>3 a 6 meses de despesas.</td></tr>
+   <tr><td>Atualização do perfil</td><td>No máximo a cada 24 meses.</td></tr>
+  </table></div>
+  <div class="card"><h3>Títulos públicos</h3><table>
+   <tr><th>Sigla</th><th>Nome</th><th>Indexador</th><th>Juros semestrais</th></tr>
+   <tr><td>LTN</td><td>Tesouro Prefixado</td><td>Taxa fixa</td><td>Não</td></tr>
+   <tr><td>NTN-F</td><td>Prefixado com Juros Semestrais</td><td>Taxa fixa</td><td>Sim</td></tr>
+   <tr><td>LFT</td><td>Tesouro Selic</td><td>Selic</td><td>Não</td></tr>
+   <tr><td>NTN-B Principal</td><td>Tesouro IPCA+</td><td>IPCA + taxa fixa</td><td>Não</td></tr>
+   <tr><td>NTN-B</td><td>IPCA+ com Juros Semestrais</td><td>IPCA + taxa fixa</td><td>Sim</td></tr>
+  </table></div>
+  <div class="card"><h3>Fórmulas</h3><ul>
+   <li>Juros simples: M = C × (1 + i × n)</li>
+   <li>Juros compostos: M = C × (1 + i)<sup>n</sup></li>
+   <li>Fisher: (1 + nominal) = (1 + real) × (1 + inflação)</li>
+   <li>Desconto comercial: D = N × d × n. Valor recebido = N − D</li>
+   <li>SAC: amortização = saldo ÷ nº de parcelas (constante). Parcelas decrescem.</li>
+   <li>Price: parcela constante. Amortização cresce.</li>
+   <li>Payback = investimento ÷ retorno periódico</li>
+   <li>PL pessoal = ativos − passivos · Poupança = receitas − despesas</li>
+   <li>PIB = C + I + G + (X − M)</li>
+  </ul></div>
+  <div class="card"><h3>Ilícitos (macetes)</h3><ul>
+   <li><b>Spoofing:</b> ordem "de mentira" para enganar.</li>
+   <li><b>Layering:</b> várias ordens em camadas de preço.</li>
+   <li><b>Churning:</b> girar a conta do cliente para ganhar corretagem.</li>
+   <li><b>Front running:</b> operar na frente da ordem do cliente.</li>
+   <li><b>Money pass:</b> repasse combinado de resultados entre partes.</li>
+   <li><b>Insider trading:</b> usar informação privilegiada (art. 27-D).</li>
+   <li><b>Manipulação de mercado:</b> art. 27-C.</li>
+   <li><b>Exercício irregular:</b> art. 27-E.</li>
+  </ul></div>`;
+}
+
+// ---------- progresso ----------
+function vProgresso(){
+  const [d,t]=pctSecoes();
+  const sims=S.sims;
+  const med=b=>{const l=sims.filter(x=>x.b).map(x=>x.b[b-1]);const c=l.reduce((a,x)=>a+x[0],0),n=l.reduce((a,x)=>a+x[1],0);return n?Math.round(100*c/n):null};
+  $("#app").innerHTML=`<h2>Seu progresso</h2>
+  <div class="card"><h3>Leitura</h3><div class="bar"><i style="width:${Math.round(100*d/t)}%"></i></div><p class="muted">${d} de ${t} seções</p></div>
+  <div class="card"><h3>Desempenho por bloco</h3>
+  <table><tr><th>Bloco</th><th>Último exercício</th><th>Média nos simulados</th></tr>`+
+  [1,2,3,4].map(b=>{const f=S.fix[b],m=med(b);return `<tr><td>${b}. ${NOMES[b]}</td><td>${f?f.a+"/"+f.t:"-"}</td><td>${m==null?"-":m+"%"}</td></tr>`}).join("")+
+  `</table><p class="muted">Foque nos blocos abaixo de 70%.</p></div>
+  <div class="card"><h3>Simulados feitos</h3>${sims.length?`<table><tr><th>Quando</th><th>Simulado</th><th>Acertos</th><th>Resultado</th></tr>`+
+  sims.slice().reverse().map(x=>`<tr><td>${new Date(x.d).toLocaleString("pt-BR")}</td><td>${x.n}</td><td>${x.a}/${x.t}</td><td class="${x.a>=35?"pass":"fail"}">${x.a>=35?"Aprovado":"Reprovado"}</td></tr>`).join("")+`</table>`:`<p class="muted">Nenhum ainda.</p>`}
+  </div>
+  <p><button class="btn sec" onclick="ask('Apagar todo o progresso?',()=>{S={secoes:{},fix:{},sims:[]};save();render()})">Zerar progresso</button></p>`;
+}
+
+let SMP=null;
+function vTutor(){}
+render();
+
+</script>
+</body>
+</html>
