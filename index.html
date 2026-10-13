@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="google" content="notranslate">
+<meta name="theme-color" content="#1f4e8c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CPA Anbima">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Estudos CPA Anbima</title>
 <style>
@@ -10,7 +18,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--muted:#9aa5b4;--line:#2d3642;--brand:#7fb0ee;--brand2:#1e2c42;--ok:#5cc88c;--okbg:#14301f;--bad:#f39a92;--badbg:#3a1b19;--warn:#e8b84a;--warnbg:#3a2f12;--soft:#222a35;--th:#222a35;--track:#2d3642;--onbrand:#0d1a2e;--hdr:#1a2f4f;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#12161c;--card:#1a2029;--ink:#e6eaf0;--muted:#9aa5b4;--line:#2d3642;--brand:#7fb0ee;--brand2:#1e2c42;--ok:#5cc88c;--okbg:#14301f;--bad:#f39a92;--badbg:#3a1b19;--warn:#e8b84a;--warnbg:#3a2f12;--soft:#222a35;--th:#222a35;--track:#2d3642;--onbrand:#0d1a2e;--hdr:#1a2f4f;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px}
+body{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:16px}
 header{background:var(--hdr);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 header h1{font-size:18px;margin:0;font-weight:600}
 header small{opacity:.85}
@@ -57,6 +65,19 @@ li{margin:3px 0}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}.mbox{background:var(--card);border-radius:12px;padding:18px;max-width:420px;width:100%}.ia{white-space:pre-wrap}textarea{width:100%;min-height:110px;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:var(--card);color:var(--ink)}.msg{padding:8px 12px;border-radius:10px;margin:8px 0;white-space:pre-wrap}.msg.u{background:var(--brand2)}.msg.a{background:var(--soft)}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chips button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 11px;cursor:pointer;font-size:13.5px}
 .pass{color:var(--ok)}.fail{color:var(--bad)}
 .sec-done{color:var(--ok);font-weight:600}
+@media(max-width:700px){
+  header{padding:10px 14px}header h1{font-size:16px}header small{display:none}
+  nav{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:6px 8px;gap:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{flex:none;padding:10px 12px}
+  .btn{min-height:44px;padding:10px 16px}
+  .opt{padding:14px;font-size:16px}
+  .qnav button{width:42px;height:40px;font-size:14px}
+  h2{font-size:20px}
+  .big{font-size:34px}
+  .card{border-radius:10px}
+  .row .btn{flex:1 1 auto;text-align:center}
+}
 @media print{nav,header,.btn,.noprint{display:none}body{background:#fff}.card{border:0}}
 @media(max-width:560px){main{padding:10px}.card{padding:12px}nav button{padding:7px 9px;font-size:14px}}
 </style>
@@ -1035,6 +1056,24 @@ function render(){
   $("#app").innerHTML=""; f();
 }
 
+// ---------- instalar como aplicativo ----------
+let deferredPrompt=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;if(tab==="inicio")render()});
+window.addEventListener("appinstalled",()=>{deferredPrompt=null;if(tab==="inicio")render()});
+function instalar(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null}}
+function instalarCard(){
+  if(!window.__pwa)return "";
+  try{if(window.matchMedia("(display-mode: standalone)").matches||navigator.standalone)return ""}catch(e){}
+  return `<div class="card"><h3>Instalar como aplicativo</h3>
+    <p>Coloque este material na tela inicial do celular. Ele abre em tela cheia e funciona <b>sem internet</b>.</p>
+    ${deferredPrompt?`<p><button class="btn" onclick="instalar()">Instalar aplicativo</button></p>`:""}
+    <ul>
+      <li><b>Android (Chrome):</b> toque nos três pontos do canto e em <b>Instalar aplicativo</b> ou <b>Adicionar à tela inicial</b>.</li>
+      <li><b>iPhone (Safari):</b> toque em <b>Compartilhar</b> e depois em <b>Adicionar à Tela de Início</b>.</li>
+      <li><b>Computador (Chrome ou Edge):</b> clique no ícone de instalar, na barra de endereço, à direita.</li>
+    </ul></div>`;
+}
+
 // ---------- início ----------
 function pctSecoes(){let t=0,d=0;MODULOS.forEach(m=>m.secoes.forEach((s,i)=>{t++;if(S.secoes[m.id+"-"+i])d++}));return [d,t]}
 function vInicio(){
@@ -1079,6 +1118,7 @@ function vInicio(){
     </table>
     <p class="muted">Estude de 45 a 60 minutos por dia. Constância vale mais do que maratona.</p>
   </div>
+  ${instalarCard()}
   <div class="card">
     <h3>Importante</h3>
     <ul>
@@ -1323,6 +1363,10 @@ function vProgresso(){
 
 let SMP=null;
 function vTutor(){}
+window.__pwa=true;
+if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
+  window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});
+}
 render();
 
 </script>
