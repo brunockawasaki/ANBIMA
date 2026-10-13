@@ -22,7 +22,8 @@ body{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inse
 header{background:var(--hdr);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 header h1{font-size:18px;margin:0;font-weight:600}
 header small{opacity:.85}
-.tbtn{margin-left:auto;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.tbtn{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:50%;padding:0;cursor:pointer}
+.tbtn svg{width:22px;height:22px;display:block}
 .tbtn:hover{background:rgba(255,255,255,.25)}
 .tbtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
 nav{display:flex;gap:4px;flex-wrap:wrap;background:var(--card);border-bottom:1px solid var(--line);padding:8px 12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
@@ -1041,7 +1042,14 @@ function aplicaTema(){
   const r=document.documentElement;
   if(g==="dark"||g==="light")r.setAttribute("data-theme",g); else r.removeAttribute("data-theme");
   const b=document.getElementById("tema");
-  if(b)b.textContent=t==="dark"?"Modo claro":"Modo escuro";
+  if(b){
+    const sol='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M5.3 18.7L7 17M17 7l1.7-1.7"/></svg>';
+    const lua='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"/></svg>';
+    // no modo escuro mostra o sol (clique para clarear); no claro mostra a lua (clique para escurecer)
+    b.innerHTML=t==="dark"?sol:lua;
+    const rot=t==="dark"?"Mudar para o modo claro":"Mudar para o modo escuro";
+    b.setAttribute("aria-label",rot); b.title=rot;
+  }
 }
 function alternaTema(){
   const novo=temaEfetivo()==="dark"?"light":"dark";
